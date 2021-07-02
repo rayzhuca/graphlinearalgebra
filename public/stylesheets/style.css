@@ -48,7 +48,7 @@ input:focus, div[contenteditable="true"]:focus {
 
 /* TOP BAR */
 #top-bar {
-  z-index: 10;
+  z-index: 1010;
   top: 0;
   left: 0;
   position: absolute;
@@ -100,7 +100,7 @@ input:focus, div[contenteditable="true"]:focus {
 
 .content-bar {
   position: absolute;
-  z-index: 8;
+  z-index: 1008;
   top: 30px;
   background-color: #3d3d3d;
   width: 100%;
@@ -134,7 +134,7 @@ input:focus, div[contenteditable="true"]:focus {
 /* PROPERTY FRAME */
 .property-frame, .warning-frame {
   display: none;
-  z-index: 3;
+  z-index: 100;
   position: absolute;
   top: 20%;
   left: 20%;
@@ -178,8 +178,12 @@ input:focus, div[contenteditable="true"]:focus {
   background-color: #e04343;
   border-radius: 100%;
   display: inline-block;
-  z-index: 4;
+  z-index: 1000;
   cursor: pointer;
+}
+
+.property-frame > .top-bar > .close-button:hover, .warning-frame > .top-bar > .close-button:hover {
+  background-color: #c23636;
 }
 
 .property-frame > .top-bar > .title, .warning-frame > .top-bar > .title {

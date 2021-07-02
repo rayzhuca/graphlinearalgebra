@@ -1,3 +1,10 @@
+public/javascripts/*
+!public/javascripts/compiled.js
+
+public/stylesheets/style.scss
+public/stylesheets/style.css.map
+
+
 # mac
 .DS_Store
 
