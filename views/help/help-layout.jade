@@ -1,0 +1,15 @@
+extends ../layout 
+
+block headcontent
+    link(rel='stylesheet', href='/stylesheets/help-style.css')
+
+block content
+    header
+        #favicon
+        #title
+            a(href="/help")="Help Linear Algebra"
+        nav
+        .bar-button#matrices-button="Matrices"
+        .bar-button#vectors-button="Vectors"
+        .bar-button#tools-button="Tools"
+    block help-content

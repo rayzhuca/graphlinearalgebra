@@ -8,8 +8,6 @@ html {
 }
 
 body {
-  padding: 0;
-  margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   min-height: 100vh;
   min-height: -webkit-fill-available;
@@ -79,6 +77,16 @@ input:focus, div[contenteditable="true"]:focus {
 
 #title {
   color: #a7a7a7;
+  cursor: pointer;
+}
+
+#title:hover {
+  color: #c1c1c1;
+}
+
+#title > a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .bar-button {

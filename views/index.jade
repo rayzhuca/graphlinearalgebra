@@ -10,13 +10,15 @@ block headcontent
   script(defer src="/javascripts/graph.js" type="module")
   script(defer src="/javascripts/main.js" type="module")
   script(defer src="/javascripts/panel.js" type="module")
+  //- script(src="/javascripts/compiled.js" type="module")
 
   meta(name="description", content="Visualize vectors, matrices, determinants, and much more with Graph Linear Algebra!")
 
 block content
   #top-bar
     #favicon
-    #title="Graph Linear Algebra"
+    #title
+      a(href="/")="Graph Linear Algebra"
     nav
       .bar-button#matrices-button.disabled="Matrices"
       .bar-button#vectors-button.disabled="Vectors"

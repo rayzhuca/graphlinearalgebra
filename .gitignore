@@ -1,5 +1,8 @@
-public/javascripts/*
+# public/javascripts/*
 !public/javascripts/compiled.js
+!public/javascripts/math.js
+!public/javascripts/pts.js
+
 
 public/stylesheets/style.scss
 public/stylesheets/style.css.map
