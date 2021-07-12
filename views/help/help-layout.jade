@@ -1,7 +1,9 @@
 extends ../layout 
 
 block headcontent
+    link(rel='stylesheet', href='/stylesheets/normalize.css')
     link(rel='stylesheet', href='/stylesheets/help-style.css')
+    block help-headcontent
 
 block content
     header
@@ -9,7 +11,12 @@ block content
         #title
             a(href="/help")="Help Linear Algebra"
         nav
-        .bar-button#matrices-button="Matrices"
-        .bar-button#vectors-button="Vectors"
-        .bar-button#tools-button="Tools"
+        .bar-button#matrices-button
+            a(href="/help/matrices")="Matrices"
+        .bar-button#vectors-button
+            a(href="/help/vectors")="Vectors"
+        .bar-button#tools-button
+            a(href="/help/tools")="Tools"
+        .bar-button#graph-button
+            a(href="/graph2d")="Graph"
     block help-content

@@ -6,14 +6,14 @@ const barButtons = document.getElementsByClassName("bar-button");
 const matricesButton = document.getElementById("matrices-button");
 const vectorsButton = document.getElementById("vectors-button");
 const toolsButton = document.getElementById("tools-button");
-const settingsButton = document.getElementById("settings-button");
+// const settingsButton = document.getElementById("settings-button");
 
 
 const contentBars = document.getElementsByClassName('content-bar');
 const matricesBar = document.getElementById("matrices-bar");
 const vectorsBar = document.getElementById("vectors-bar");
 const toolsBar = document.getElementById("tools-bar");
-const settingsBar = document.getElementById("settings-bar");
+// const settingsBar = document.getElementById("settings-bar");
 
 
 
@@ -48,11 +48,11 @@ const buttonBarPair = new Map();
 buttonBarPair.set(matricesButton, matricesBar);
 buttonBarPair.set(vectorsButton, vectorsBar);
 buttonBarPair.set(toolsButton, toolsBar);
-buttonBarPair.set(settingsButton, settingsBar);
 
 buttonBarPair.forEach((value, key) => {
     key.addEventListener('click', () => {
-        toggleContentBar(key, value);
+        if (key && value)
+            toggleContentBar(key, value);
     });
 })
 
@@ -90,6 +90,7 @@ buttonPropertyFramePair.set(determinantButton, determinantFrame);
 buttonPropertyFramePair.set(eigenButton, eigenFrame);
 
 buttonPropertyFramePair.forEach((value, key) => {
+    if (value && key)
     key.addEventListener('click', () => {
         openPropertyFrame(value);
         key.classList.remove('disabled');
@@ -114,6 +115,16 @@ for (let frame of propertyFrames) {
 
 
 /* PROPERTY FRAME */
+
+function removePasteStyling(e) {
+    e.preventDefault();
+    const text = e.clipboardData.getData('text/plain');
+    document.execCommand('insertText', false, text);
+}
+
+document.querySelectorAll('[contenteditable]').forEach(v => {
+    v.addEventListener('paste', removePasteStyling);
+});
 
 // closing
 const closeButtons =
@@ -233,7 +244,7 @@ function transformFromInput(input) {
         handleTransform({matrix: IDENTITY_MATRIX, err: "Input is empty"});
         return;
     }
-    handleTransform(parseMatrix(input, getMatrices()));
+    handleTransform(parseMatrix(input, getMatrices(), getVectors()));
 }
 
 function handleTransform(output) {

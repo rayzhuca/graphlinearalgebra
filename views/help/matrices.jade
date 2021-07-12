@@ -1,6 +1,137 @@
 extends help-layout
 
 block help-content 
-    section.nav-panel
-        h1.help-title= "Matrices"
+  section.nav-panel.wrapper
+    h1.help-title= "Matrices"
+    p.description.
+      The matrices bar deals with applying transformations onto the graph. 
+    //- ul.sections
+    //-   li
+    //-     a(href="#add")="#add"
+    //-   li
+    //-     a(href="#transform")="#transform"
+    //-   li
+    //-     a(href="#list")="#list"
+
+  section.property.wrapper#add
+    h2.title="#add"
+    p.description.
+      The add panel saves a matrix as a variable.
+    p.description.
+      The new variables can be used as an alias for the matrix in other panels, such as <a href="#transform">#transform</a>.
+
+    div.subsection
+      h4.subtitle=".name"
+      p.description.
+        The name property is the variable name that will be used as an alias for the matrix.
+      p.description.
+        This alias is always case sensitive.
+    div.subsection
+      h4.subtitle=".matrix"
+      p.description.
+        The matrix is a 2x2 matrix. Its inputs must be a <strong><code>number</code></strong>. The inputs cannot be blank.
+      p.description.
+        Examples of a valid number are <strong><code>2</code></strong>, <strong><code>2.3</code></strong>, <strong><code>2.3e3</code></strong>. A mathematical expression such as <code><strong>2*3</code></strong> is not vaild and could be misinterpreted.
+
+    p.description.
+      If the name is already taken, then it will replace the matrix with the new matrix.
+    p.description.
+      All the matrices added will be listed on <a href="#list">#list</a>.
+
+  section.property.wrapper#transform
+    h2.title="#transform"
+    p.description.
+      The transform panel applies a matrix transformation of the input.
+
+    div.subsection
+      h4.subtitle=".input"
+      p.description.
+        The input can be a mathematical expression and must output a 2x2 matrix.
+      p.description.
+        Here is a table of the basic mathematical operators and expressions you may use: 
+      table 
+        tr 
+          th= "expression"
+          th= "description"
+          th= "example"
+        tr
+          th
+            <strong><code>[a,b;c,d]</strong></code>
+          th= "creates a new matrix with c1=[a, b] and c2=[c, d]"
+          th
+            <strong><code>[1,0;0,1] == I</strong></code>
+        tr
+          th
+            <strong><code>[c1, c2]</strong></code>
+          th= "creates a new matrix with two vectors"
+          th
+            <strong><code>(Let o=[1, 1]) [o, o] == [1,1;1,1]</strong></code>
+        tr
+          th
+            <strong><code>M*c</strong></code>
+          th= "scalar multiplication"
+          th
+            <strong><code>2*I == [2,0;0,2]</strong></code>
+        tr
+          th
+            <strong><code>M*N</strong></code>
+          th= "matrix multiplication"
+          th
+            <strong><code>I*[1,2;3,4] == [1,2;3,4]</strong></code>
+        tr
+          th
+            <strong><code>M+N</strong></code>
+          th= "matrix addition"
+          th
+            <strong><code>I+I == 2*I</strong></code>
+        tr
+          th
+            <strong><code>inv(M)</strong></code>
+          th= "matrix inversion"
+          th
+            <strong><code>inv([1,2;3,4]) == [-2,1;1.5,-0.5]</strong></code>
+        tr
+          th
+            <strong><code>M'</strong></code>
+          th= "matrix transposition"
+          th
+            <strong><code>[1,2;3,4]' == [1,3;2,4]</strong></code>
+        tr
+          th
+            <strong><code>(expression)</strong></code>
+          th= "operator precedence"
+          th
+            <strong><code>(I+I)*2 == 4*I</strong></code>
+
+      p.description.
+        Expressions can be chained together, e.g, <strong><code>inv(M*N)+2I</strong></code>.
+      br
+      p.description.
+        Variables stored in <a href="#list">matrices#list</a> and <a href="vectors#list">vectors#list</a> can be used in the input.
+      br
+      p.description.
+        There are more functions/expressions that can be used. See
+        <a href="https://mathjs.org/docs/expressions/syntax.html" target="_blank">math.js expression syntax</a> and 
+        <a href="https://mathjs.org/docs/reference/functions.html" target="_blank">math.js function references</a>.
+      p.description.
+        For example, <strong><code>pow([1,log2(4);1,gcd(24,9)], 2)</strong></code> is <strong><code>[3,8;4,11]</strong></code>.
+
+    div.subsection
+      h4.subtitle=".output"
+      p.description.
+        The resulting matrix of the input.
+
+    p.description.
+      If the name is already taken, then it will replace the matrix with the new matrix.
+    p.description.
+      All the matrices added will be listed on <a href="#list">#list</a>.
+
+  section.property.wrapper#list 
+    h2.title="#list"
+    p.description.
+      The list panel is used to view all the matrices variables stored.
+    p.description.
+      To see how to add matrices as a variable, see <a href="#add">#add</a>. 
+    p.description.
+      The "del" button is used to delete a variable.
 

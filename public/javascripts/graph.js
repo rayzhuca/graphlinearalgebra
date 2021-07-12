@@ -18,6 +18,9 @@ export class Graph {
         this.vectorsDrawn = [];
         this.mouseX = 0;
         this.mouseY = 0;
+        this.settings = {
+            drawLabels: true
+        };
     }
 
     _drawText(text="", pos) {
@@ -149,7 +152,7 @@ export class Graph {
             this._drawHorizontalLine(0, squareCanvasBound, Matrix.IDENTITY);
             this._drawVerticalLine(0, squareCanvasBound, Matrix.IDENTITY);
         }
-        this._drawGridLines(step, useScientifcX, squareCanvasBound, Matrix.IDENTITY, false, "#f5f5f5");
+        this._drawGridLines(step, useScientifcX, squareCanvasBound, Matrix.IDENTITY, !this.settings.drawLabels, "#f5f5f5");
 
         // w/ matrix
         // if (!matrix.equals(Matrix.IDENTITY)) {

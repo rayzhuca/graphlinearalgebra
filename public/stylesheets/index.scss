@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    background-color: rgb(46, 65, 100);
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-smooth: always;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+#graph {
+    height: 70vh;
+}
+
+#pt {
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(97, 205, 255);
+    transition: 0.5s ease-out;
+    font-weight: bold;
+
+    &:hover {
+        color: rgb(172, 229, 255);
+    }
+}
+
+footer {
+    background-color: rgb(46, 65, 100);
+    color: white;
+    // border-top: 2px solid #389FFF;
+    z-index: 100;
+    // box-shadow: 0px -4px 3px black;
+    display: flex;
+    flex-wrap: wrap;
+    .left, .right {
+        flex: 1;
+        height: 100%;
+        padding: 30px 5%;
+        line-height: 30px;
+        min-width: 200px;
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            font-weight: lighter;
+            font-size: 1.1em;
+        }
+    }
+}
+
+.begin-graphing-button {
+    margin-top: 20px;
+}

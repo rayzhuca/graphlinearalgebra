@@ -98,6 +98,11 @@ input:focus, div[contenteditable="true"]:focus {
   color: #adadad;
 }
 
+#help-button > a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .bar-button.disabled {
   color: #969696;
 }
@@ -487,4 +492,4 @@ input:focus, div[contenteditable="true"]:focus {
 #storage {
   display: none;
 }
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=graph2d.css.map */

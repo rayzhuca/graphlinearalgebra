@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #2e4164;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#graph {
+  height: 70vh;
+}
+
+#pt {
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: #61cdff;
+  -webkit-transition: 0.5s ease-out;
+  transition: 0.5s ease-out;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #ace5ff;
+}
+
+footer {
+  background-color: #2e4164;
+  color: white;
+  z-index: 100;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+footer .left, footer .right {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 100%;
+  padding: 30px 5%;
+  line-height: 30px;
+  min-width: 200px;
+}
+
+footer .left h2, footer .right h2 {
+  margin-bottom: 10px;
+}
+
+footer .left h4, footer .right h4 {
+  font-weight: lighter;
+  font-size: 1.1em;
+}
+
+.begin-graphing-button {
+  margin-top: 20px;
+}
+/*# sourceMappingURL=index.css.map */

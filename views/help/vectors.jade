@@ -1,0 +1,62 @@
+extends help-layout
+
+block help-content 
+  section.nav-panel.wrapper
+    h1.help-title Vectors
+    p.description.
+      The vectors bar deals with adding and graphing vectors. 
+    //- ul.sections
+    //-   li
+    //-     a(href="#add")="#add"
+    //-   li
+    //-     a(href="#transform")="#transform"
+    //-   li
+    //-     a(href="#list")="#list"
+
+  section.property.wrapper#add
+    h2.title="#add"
+    p.description.
+      The add panel adds a vector to the graph.
+    p.description.
+      Since each vector is given a name, its name can also be used as an alias for a vector.
+      See <a href="/help/tools#dot-product">tools#dot-product</a>
+    p.description.
+      The vectors added can be seen in <a href="#list">#list</a>.
+
+    div.subsection
+      h4.subtitle=".name"
+      p.description.
+        The name property is the variable name that will be used as an alias for the vector.
+    div.subsection
+      h4.subtitle=".vector"
+      p.description.
+        The vector input accept two numbers that represent the x and y component of the vector.
+      p.description.
+        Examples of a valid number are <strong><code>2</code></strong>, <strong><code>2.3</code></strong>, <strong><code>2.3e3</code></strong>. A mathematical expression such as <code><strong>2*3</code></strong> is not vaild and could be misinterpreted.
+    div.subsection
+      h4.subtitle=".color"
+      p.description.
+        The color is the color of the vector that will be drawn on the graph.
+
+    p.description.
+      If the name is already taken, then it will replace the vector with the new vector.
+
+  section.property.wrapper#unit-vectors
+    h2.title="#unit-vectors"
+    p.description.
+      The unit vectors panel is used to enable/disable graphing the unit vectors.
+
+    div.subsection
+      h4.subtitle=".enabled-unit-vectors"
+      p.description.
+        If on, iHat and jHat will be graphed.
+
+  section.property.wrapper#list 
+    h2.title="#list"
+    p.description.
+      The list panel is used to view all the vector variables stored.
+    p.description.
+      To see how to add vectors as a variable, see <a href="#add">#add</a>. 
+    p.description.
+      The "del" button is used to delete a variable.
+
