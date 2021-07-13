@@ -18,7 +18,15 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  text-decoration: none;
+  color: #61cdff;
+  -webkit-transition: 0.5s ease-out;
+  transition: 0.5s ease-out;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #ace5ff;
 }
 
 .noselect, #top-bar > *, .content-bar > *, .property-frame > .top-bar, .warning-frame > .top-bar, .property-frame > .properties-list, .warning-frame > .properties-list, .property-frame > .button-list, .warning-frame > .button-list {
@@ -45,43 +53,59 @@ input:focus, div[contenteditable="true"]:focus {
 }
 
 /* TOP BAR */
-#top-bar {
+#top-wrapper {
+  position: absolute;
   z-index: 1010;
   top: 0;
   left: 0;
-  position: absolute;
   width: 100%;
-  height: 28px;
+}
+
+#top-bar {
+  z-index: 1010;
+  width: 100%;
+  min-height: 40px;
   padding-top: 2px;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#444444), to(#3d3d3d));
-  background-image: linear-gradient(180deg, #444444, #3d3d3d);
-  border-bottom: 2px solid #303030;
-  color: #969696;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#2e4164), to(#293b5c));
+  background-image: linear-gradient(180deg, #2e4164, #293b5c);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 #top-bar > * {
-  display: inline-block;
-  vertical-align: middle;
-  vertical-align: -webkit-baseline-middle;
   margin-left: 10px;
   margin-right: 10px;
 }
 
 #favicon {
-  height: 20px;
-  width: 20px;
-  margin-right: 0px;
-  background-image: url("/images/favicon.png");
+  height: 32px;
+  width: 32px;
+  margin-left: 30px;
+  background-image: url("/images/favicon.svg");
+  background-position: center;
   background-size: contain;
+  background-repeat: no-repeat;
 }
 
 #title {
-  color: #a7a7a7;
+  color: white;
   cursor: pointer;
+  padding: 10px 10px;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
 #title:hover {
-  color: #c1c1c1;
+  color: #e4e4e4;
 }
 
 #title > a {
@@ -93,9 +117,11 @@ input:focus, div[contenteditable="true"]:focus {
   display: inline-block;
   margin-left: 8px;
   margin-right: 8px;
-  font-size: 0.9em;
+  font-size: 1em;
+  font-weight: bold;
   cursor: pointer;
-  color: #adadad;
+  color: white;
+  padding: 10px 5px;
 }
 
 #help-button > a {
@@ -104,21 +130,29 @@ input:focus, div[contenteditable="true"]:focus {
 }
 
 .bar-button.disabled {
-  color: #969696;
+  color: #e4e4e4;
 }
 
 .bar-button:hover {
-  color: #adadad;
+  color: white;
 }
 
 .content-bar {
-  position: absolute;
   z-index: 1008;
-  top: 30px;
-  background-color: #3d3d3d;
+  background-color: #334970;
   width: 100%;
-  height: 30px;
-  padding-left: 10px;
+  padding: 0 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .content-bar.disabled {
@@ -126,22 +160,18 @@ input:focus, div[contenteditable="true"]:focus {
 }
 
 .content-bar > * {
-  display: inline-block;
-  vertical-align: middle;
-  vertical-align: -webkit-baseline-middle;
-  font-size: 0.8em;
-  margin-left: 10px;
-  margin-right: 10px;
+  font-size: 0.9em;
+  padding: 8px 20px;
   cursor: pointer;
-  color: #adadad;
+  color: #fafafa;
 }
 
 .content-bar > *:hover {
-  color: #adadad !important;
+  color: #fafafa !important;
 }
 
 .content-bar > *.disabled {
-  color: #8a8a8a;
+  color: #e6e6e6;
 }
 
 /* PROPERTY FRAME */
@@ -151,7 +181,7 @@ input:focus, div[contenteditable="true"]:focus {
   position: absolute;
   top: 20%;
   left: 20%;
-  background-color: #414141;
+  background-color: #e7e7e7;
   width: 200px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -166,8 +196,8 @@ input:focus, div[contenteditable="true"]:focus {
 
 .property-frame > .top-bar, .warning-frame > .top-bar {
   width: 100%;
-  height: 20px;
-  background-color: #353535;
+  height: 25px;
+  background-color: #2f4774;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -206,19 +236,21 @@ input:focus, div[contenteditable="true"]:focus {
   -webkit-transform: translateX(-10px);
           transform: translateX(-10px);
   text-align: center;
-  font-size: 0.8em;
-  color: #a7a7a7;
+  color: white;
+  font-weight: bold;
+  font-size: .9em;
 }
 
 .property-frame > .properties-list, .warning-frame > .properties-list {
+  padding-top: 15px;
   list-style: none;
   margin-top: 10px;
   font-size: 0.9em;
-  color: #adadad;
+  color: #222222;
 }
 
 .property-frame > .properties-list > li, .warning-frame > .properties-list > li {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .property-frame > .properties-list > li > *, .warning-frame > .properties-list > li > * {
@@ -231,6 +263,7 @@ input:focus, div[contenteditable="true"]:focus {
   width: 30%;
   padding-left: 25px;
   padding-right: 10px;
+  font-weight: bold;
 }
 
 .property-frame > .properties-list .right-wrapper, .warning-frame > .properties-list .right-wrapper {
@@ -270,13 +303,18 @@ input:focus, div[contenteditable="true"]:focus {
 .property-frame > .button-list > .button, .warning-frame > .button-list > .button {
   width: 35%;
   height: 20px;
-  background-color: #353535;
-  color: #b8b8b8;
+  background-color: #dbdbdb;
+  color: #1b1b1b;
   border-radius: 5px;
-  font-size: 0.8em;
+  font-size: 0.9em;
   line-height: 20px;
+  font-weight: bold;
   text-align: center;
   cursor: pointer;
+}
+
+.property-frame > .button-list > .button:hover, .warning-frame > .button-list > .button:hover {
+  background-color: lightgray;
 }
 
 /* MATRICES */
@@ -292,7 +330,7 @@ input:focus, div[contenteditable="true"]:focus {
 .properties-list > li.matrix .input-matrix .left-bracket, #matrices-list-frame li.matrix-list-li .left-bracket, #matrices-transform-frame .output-matrix .left-bracket {
   height: 50px;
   width: 5px;
-  border: 1px solid #adadad;
+  border: 1px solid #222222;
   border-right: 0px;
 }
 
@@ -325,7 +363,7 @@ input:focus, div[contenteditable="true"]:focus {
 .properties-list > li.matrix .input-matrix .right-bracket, #matrices-list-frame li.matrix-list-li .right-bracket, #matrices-transform-frame .output-matrix .right-bracket {
   height: 50px;
   width: 5px;
-  border: 1px solid #adadad;
+  border: 1px solid #222222;
   border-left: 0px;
 }
 
@@ -482,11 +520,9 @@ input:focus, div[contenteditable="true"]:focus {
 }
 
 .warning-frame > .content {
-  color: #adadad;
-  font-size: 0.8em;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 25px;
+  color: #222222;
+  font-size: 0.9em;
+  padding: 15px 20px 10px;
 }
 
 #storage {

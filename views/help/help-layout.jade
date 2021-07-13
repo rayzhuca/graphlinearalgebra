@@ -6,17 +6,31 @@ block headcontent
     block help-headcontent
 
 block content
-    header
-        #favicon
-        #title
-            a(href="/help")="Help Linear Algebra"
-        nav
-        .bar-button#matrices-button
-            a(href="/help/matrices")="Matrices"
-        .bar-button#vectors-button
-            a(href="/help/vectors")="Vectors"
-        .bar-button#tools-button
-            a(href="/help/tools")="Tools"
-        .bar-button#graph-button
-            a(href="/graph2d")="Graph"
+    #top-wrapper
+        header#top-bar
+            #favicon
+            #title
+                a(href="/help")="Help Linear Algebra"
+            nav
+            if title == "Matrices — Graph Linear Algebra"
+                .bar-button#matrices-button
+                    a(href="/help/matrices")="Matrices"
+            else 
+                .bar-button#matrices-button.disabled
+                    a(href="/help/matrices")="Matrices"
+            if title == "Vectors — Graph Linear Algebra"
+                .bar-button#vectors-button
+                    a(href="/help/vectors")="Vectors"
+            else 
+                .bar-button#vectors-button.disabled
+                    a(href="/help/vectors")="Vectors"
+            if title == "Tools — Graph Linear Algebra"
+                .bar-button#tools-button
+                    a(href="/help/tools")="Tools"
+            else
+                .bar-button#tools-button.disabled
+                    a(href="/help/tools")="Tools"
+
+            .bar-button#graph-button.disabled
+                a(href="/graph2d")="Graph"
     block help-content

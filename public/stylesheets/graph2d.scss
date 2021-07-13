@@ -18,8 +18,16 @@ body {
 }
 
 a {
-	color: #00B7FF;
+    text-decoration: none;
+    color: rgb(97, 205, 255);
+    transition: 0.5s ease-out;
+    font-weight: bold;
+
+    &:hover {
+        color: rgb(172, 229, 255);
+    }
 }
+
 
 // z-index: 
 // 100-999 frame
@@ -51,23 +59,34 @@ input:focus, div[contenteditable="true"]:focus {
 }
 
 /* TOP BAR */
-
-#top-bar {
+#top-wrapper {
+	position: absolute;
 	z-index: 1010;
 	top: 0;
 	left: 0;
-	position: absolute;
 	width: 100%;
-	height: 28px;
+}
+
+#top-bar {
+	z-index: 1010;
+	// position: absolute;
+	width: 100%;
+	// height: 28px;
+	min-height: 40px;
 	padding-top: 2px;
-	background-image: linear-gradient(180deg, rgb(68, 68, 68), rgb(61, 61, 61));
-	border-bottom: 2px solid rgb(48, 48, 48);
-	color: rgb(150, 150, 150);
+	background-image: linear-gradient(180deg, rgb(46, 65, 100), rgb(41, 59, 92));
+	// border-bottom: 2px solid rgb(48, 48, 48);
+	// color: rgb(255, 255, 255);
+
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	flex-wrap: wrap;
 
     & > * {
-        display: inline-block;
-        vertical-align: middle;
-        vertical-align: -webkit-baseline-middle;
+        // display: inline-block;
+        // vertical-align: middle;
+        // vertical-align: -webkit-baseline-middle;
         margin-left: 10px;
         margin-right: 10px;
         @extend .noselect;
@@ -75,19 +94,24 @@ input:focus, div[contenteditable="true"]:focus {
 }
 
 #favicon {
-	height: 20px;
-	width: 20px;
-	margin-right: 0px;
-	background-image: url('/images/favicon.png');
+	height: 32px;
+	width: 32px;
+	margin-left: 30px;
+	background-image: url('/images/favicon.svg');
+	background-position: center;
 	background-size: contain;
+	background-repeat: no-repeat;
 }
 
 #title {
-	color:rgb(167, 167, 167);
+	color:rgb(255, 255, 255);
 	cursor: pointer;
+	padding: 10px 10px;
+	font-size: 1.1em;
+	font-weight: bold;
 
 	&:hover {
-		color: rgb(193, 193, 193);
+		color: rgb(228, 228, 228);
 	}
 
 	& > a {
@@ -100,9 +124,11 @@ input:focus, div[contenteditable="true"]:focus {
 	display: inline-block;
 	margin-left: 8px;
 	margin-right: 8px;
-	font-size: 0.9em;
+	font-size: 1em;
+	font-weight: bold;
 	cursor: pointer;
-	color: rgb(173, 173, 173);	
+	color: rgb(255, 255, 255);
+	padding: 10px 5px;
 }
 
 #help-button > a {
@@ -111,21 +137,24 @@ input:focus, div[contenteditable="true"]:focus {
 }
 
 .bar-button.disabled {
-	color: #969696;
+	color: #e4e4e4;
 }
 
 .bar-button:hover {
-	color: rgb(173, 173, 173);
+	color: rgb(255, 255, 255);
 }
 
 .content-bar {
-	position: absolute;
+	// position: absolute;
 	z-index: 1008;
-	top: 30px;
-	background-color: rgb(61, 61, 61);
+	background-color: rgb(51, 73, 112);
 	width: 100%;
-	height: 30px;
-	padding-left: 10px;
+	// height: 30px;
+	padding: 0 15px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: left;
+	align-items: center;
 }
 
 .content-bar.disabled {
@@ -133,22 +162,21 @@ input:focus, div[contenteditable="true"]:focus {
 }
 
 .content-bar > * {
-	display: inline-block;
-	vertical-align: middle;
-	vertical-align: -webkit-baseline-middle;
-	font-size: 0.8em;
-	margin-left: 10px;
-	margin-right: 10px;
+	// display: inline-block;
+	// vertical-align: middle;
+	// vertical-align: -webkit-baseline-middle;
+	font-size: 0.9em;
+	padding: 8px 20px;
 	cursor: pointer;
-	color: rgb(173, 173, 173);
+	color: rgb(250, 250, 250);
     @extend .noselect;
 
 	&:hover {
-		color: rgb(173, 173, 173) !important;
+		color: rgb(250, 250, 250) !important;
 	}
 
 	&.disabled {
-		color: rgb(138, 138, 138);
+		color: rgb(230, 230, 230);
 	}
 }
 
@@ -160,7 +188,7 @@ input:focus, div[contenteditable="true"]:focus {
 	position: absolute;
 	top: 20%;
 	left: 20%;
-	background-color: rgb(65, 65, 65);
+	background-color: rgb(231, 231, 231);
 	width: 200px;
 	border-top-left-radius: 4px;
 	border-top-right-radius: 4px;
@@ -173,8 +201,8 @@ input:focus, div[contenteditable="true"]:focus {
 
 	& > .top-bar {
 		width: 100%;
-		height: 20px;
-		background-color: rgb(53, 53, 53);
+		height: 25px;
+		background-color: rgb(47, 71, 116);
 		
 		display: flex;
 		flex-wrap: nowrap;
@@ -207,23 +235,25 @@ input:focus, div[contenteditable="true"]:focus {
 			flex-grow: 1;
 			transform: translateX(-10px);
 			text-align: center;
-			font-size: 0.8em;
-			color: rgb(167, 167, 167);
+			color: rgb(255, 255, 255);
+			font-weight: bold;
+			font-size: .9em;
 		}
 
 	}
 
 	& > .properties-list {
+		padding-top: 15px;
 		list-style: none;
 		margin-top: 10px;
 
 		font-size: 0.9em;
-		color:rgb(173, 173, 173);
+		color:rgb(34, 34, 34);
 
 		@extend .noselect;
 
 		& > li {
-			margin-bottom: 10px;
+			margin-bottom: 15px;
 			& > * {
 				display: table-cell;
 				vertical-align: middle;
@@ -236,7 +266,7 @@ input:focus, div[contenteditable="true"]:focus {
 			width: 30%;
 			padding-left: 25px;
 			padding-right: 10px;
-
+			font-weight: bold;
 		}
 
 		.right-wrapper {
@@ -278,13 +308,18 @@ input:focus, div[contenteditable="true"]:focus {
 		& > .button {
 			width: 35%;
 			height: 20px;
-			background-color: rgb(53, 53, 53);	
-			color:rgb(184, 184, 184);	
+			background-color: rgb(219, 219, 219);	
+			color:rgb(27, 27, 27);	
 			border-radius: 5px;
-			font-size: 0.8em;
+			font-size: 0.9em;
 			line-height: 20px;
+			font-weight: bold;
 			text-align: center;
 			cursor: pointer;
+
+			&:hover {
+				background-color:rgb(211, 211, 211);
+			}
 		}
 	}
 }
@@ -297,7 +332,7 @@ input:focus, div[contenteditable="true"]:focus {
 	.left-bracket {
 		height: 50px;
 		width: 5px;
-		border: 1px solid rgb(173, 173, 173);
+		border: 1px solid rgb(34, 34, 34);
 		border-right: 0px;
 	}
 
@@ -328,7 +363,7 @@ input:focus, div[contenteditable="true"]:focus {
 	.right-bracket {
 		height: 50px;
 		width: 5px;
-		border: 1px solid rgb(173, 173, 173);
+		border: 1px solid rgb(34, 34, 34);
 		border-left: 0px;
 	}
 }
@@ -473,11 +508,9 @@ input:focus, div[contenteditable="true"]:focus {
 	left: calc(50% - 100px);
 	
 	& > .content {
-		color: rgb(173, 173, 173);
-		font-size: 0.8em;
-		padding-top: 5px;
-		padding-bottom: 5px;
-		padding-left: 25px;
+		color: rgb(34, 34, 34);
+		font-size: 0.9em;
+		padding: 15px 20px 10px;
 	}
 }
 

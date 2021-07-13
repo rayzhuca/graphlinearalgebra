@@ -667,4 +667,4 @@ refreshVectorList(getVectors());
 
 handleTransform({matrix: IDENTITY_MATRIX});
 
-window.onbeforeunload = () => true;
+// window.onbeforeunload = () => true;

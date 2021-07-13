@@ -12,31 +12,34 @@ block headcontent
   script(defer src="/javascripts/panel.js" type="module")
   //- script(src="/javascripts/compiled.js" type="module")
   meta(name="description", content="Visualize vectors, matrices, determinants, and much more with Graph Linear Algebra!")
+  meta(property="og:title" content="Graph Linear Algebra | Visualize matrices, vectors, and more")
+  meta(property="og:description" content="Visualize vectors, matrices, determinants, and much more with Graph Linear Algebra!")
 
 block content
-  #top-bar
-    #favicon
-    #title
-      a(href="/graph2d")="Graph Linear Algebra"
-    nav
-      .bar-button#matrices-button.disabled="Matrices"
-      .bar-button#vectors-button.disabled="Vectors"
-      .bar-button#tools-button.disabled="Tools"
-      .bar-button#help-button.disabled
-        a(href="/help" target="_blank")="Help"
-  #matrices-bar.content-bar.disabled
-    .add-button#matrices-add-button.disabled="add"
-    .transform-button#matrices-transform-button.disabled="transform"
-    .list-button#matrices-list-button.disabled="list"
-  #vectors-bar.content-bar.disabled
-    .add-button#vectors-add-button.disabled="add"
-    .include-unit-vectors-button#vectors-include-unit-vectors-button.disabled="unit vectors"
-    .list-button#vectors-list-button.disabled="list"
-  #tools-bar.content-bar.disabled
-    .dot-product#dot-product-button.disabled="dot product"
-    .determinant#determinant-button.disabled="determinant"
-    //- .eigen-vector#eigen-button.disabled="eigen"
-  #help-bar.content-bar.disabled
+  #top-wrapper
+    #top-bar
+      #favicon
+      #title
+        a(href="/")="Graph Linear Algebra"
+      nav
+        .bar-button#matrices-button.disabled="Matrices"
+        .bar-button#vectors-button.disabled="Vectors"
+        .bar-button#tools-button.disabled="Tools"
+        .bar-button#help-button.disabled
+          a(href="/help" target="_blank")="Help"
+    #matrices-bar.content-bar.disabled
+      .add-button#matrices-add-button.disabled="add"
+      .transform-button#matrices-transform-button.disabled="transform"
+      .list-button#matrices-list-button.disabled="list"
+    #vectors-bar.content-bar.disabled
+      .add-button#vectors-add-button.disabled="add"
+      .include-unit-vectors-button#vectors-include-unit-vectors-button.disabled="unit vectors"
+      .list-button#vectors-list-button.disabled="list"
+    #tools-bar.content-bar.disabled
+      .dot-product#dot-product-button.disabled="dot product"
+      .determinant#determinant-button.disabled="determinant"
+      //- .eigen-vector#eigen-button.disabled="eigen"
+    #help-bar.content-bar.disabled
 
   //- MATRIX ADD
   .property-frame#matrices-add-frame(data-width="230px")
