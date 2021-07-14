@@ -1,5 +1,5 @@
 import { Vector } from "/javascripts/vector.js";
-new Vector(); // force load
+new Vector(0, 0); // force load
 import { Matrix } from "/javascripts/matrix.js";
 new Matrix([0, 0], [0, 0]);
 import { Graph } from "/javascripts/graph.js";
@@ -18,7 +18,7 @@ let offsetTime = 0;
 let lastTime = 0;
 
 const easeInOut = t => t > 1 ? 1 : (t<.5 ? 2*t*t : -1+(4-2*t)*t);
-const vectors = [new Vector([4, 4])];
+const vectors = [new Vector(2, 2)];
 vectors[0].color = "#f00";
 
 space.add({
@@ -44,16 +44,21 @@ space.bindMouse().bindTouch().play();
 //     e.preventDefault();
 // };
 
-setInterval(() => {
+function animateRandomMatrix() {
     offsetTime = lastTime;
     previousMatrix = transformMatrix;
     transformMatrix = getRandomMatrice();
     console.log(transformMatrix);
-}, 5 * 1000);
+}
+
+setTimeout(() => {
+    animateRandomMatrix();
+    setInterval(animateRandomMatrix, 5000);
+}, 1500);
 
 
-const r = 7;
 function getRandomMatrice() {
+    const r = 6;
     return new Matrix(
         [randomRange(-r, r), randomRange(-r, r)],
         [randomRange(-r, r), randomRange(-r, r)]
@@ -62,6 +67,4 @@ function getRandomMatrice() {
 
 function randomRange(a, b) {
     return Math.floor(Math.random() * (b-a+1)) + a;
-    // [a, b]
-    // [a, b]
 }

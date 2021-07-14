@@ -1,5 +1,5 @@
 import { Vector } from "/javascripts/vector.js";
-new Vector(); // force load
+new Vector(0, 0); // force load
 import { Matrix } from "/javascripts/matrix.js";
 new Matrix([0, 0], [0, 0]);
 import { Graph } from "/javascripts/graph.js";
@@ -40,8 +40,8 @@ space.bindCanvas('wheel', (e) => {
     let delta = e.deltaY;
     e.preventDefault();
     if (e.ctrlKey)
-        delta *= 50;
-    graph.scale(1 + delta/(100 * 30));
+        delta *= 30;
+    graph.scale(1 + delta/(100 * 7));
 }, { passive: false });
 
 space.bindMouse().bindTouch().play();
@@ -79,7 +79,7 @@ export function getMatrices() {
 
 /* VECTOR */
 export function addVector(name, x, y, color) {
-    const vector = new Vector([x, y]);
+    const vector = new Vector(x, y);
     vector.color = color || "#ff0000";
     vectors.set(name, vector);
 }
@@ -144,9 +144,9 @@ function pointermove_handler(ev) {
     }
 }
 
-window.onerror = function(e) {
-    alert(e);
-}
+// window.onerror = function(e) {
+//     alert(e);
+// }
 
 function pointerup_handler(ev) {
     remove_event(ev);    

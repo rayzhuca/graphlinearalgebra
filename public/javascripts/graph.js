@@ -65,7 +65,7 @@ export class Graph {
     }
 
     _drawHorizontalLine(y, bound, matrix) {
-        const p = matrix.multiplyByVector(new Vector([0, y])).getRawVector(); 
+        const p = matrix.multiplyByVector(new Vector(0, y)).p; 
 
         if (matrix.c0[1] !== 0 && matrix.c0[0] === 0) {
             const k = this._xCoordinateToPixel(y, bound);
@@ -81,7 +81,7 @@ export class Graph {
     }
 
     _drawVerticalLine(x, bound, matrix) {
-        const p = matrix.multiplyByVector(new Vector([x, 0])).getRawVector();
+        const p = matrix.multiplyByVector(new Vector(x, 0)).p;
 
         if (matrix.c1[1] !== 0 && matrix.c1[0] === 0) {
             
@@ -168,7 +168,7 @@ export class Graph {
             
             // x labels
             if (k % 2 == 0 || noLabel) continue;
-            const p = matrix.multiplyByVector(new Vector([i, 0])).getRawVector();
+            const p = matrix.multiplyByVector(new Vector(i, 0)).p;
             i = Math.round(i * 10000) / 10000;
             this._drawText(useScientifcX ? i.toExponential() : i, new Pt(this._xCoordinateToPixel(p[0], squareCanvasBound), this._yCoordinateToPixel(p[1], squareCanvasBound)+20));
         }
@@ -179,7 +179,7 @@ export class Graph {
             
             // x labels
             if (k % 2 == 0 || noLabel) continue;
-            const p = matrix.multiplyByVector(new Vector([i, 0])).getRawVector();
+            const p = matrix.multiplyByVector(new Vector(i, 0)).p;
             i = Math.round(i * 10000) / 10000;
             this._drawText(useScientifcX ? i.toExponential() : i, new Pt(this._xCoordinateToPixel(p[0], squareCanvasBound), this._yCoordinateToPixel(p[1], squareCanvasBound)+20));
         }
@@ -190,7 +190,7 @@ export class Graph {
 
             // y labels
             if (k % 2 == 0 || noLabel) continue;
-            const p = matrix.multiplyByVector(new Vector([0, i])).getRawVector();
+            const p = matrix.multiplyByVector(new Vector(0, i)).p;
             i = Math.round(i * 10000) / 10000;
             this._drawText(useScientifcX ? i.toExponential() : i, new Pt(this._xCoordinateToPixel(p[0], squareCanvasBound)-20, this._yCoordinateToPixel(p[1], squareCanvasBound)));
         }
@@ -201,7 +201,7 @@ export class Graph {
 
             // y labels
             if (k % 2 == 0 || noLabel) continue;
-            const p = matrix.multiplyByVector(new Vector([0, i])).getRawVector();
+            const p = matrix.multiplyByVector(new Vector(0, i)).p;
             i = Math.round(i * 10000) / 10000;
             this._drawText(useScientifcX ? i.toExponential() : i, new Pt(this._xCoordinateToPixel(p[0], squareCanvasBound)-20, this._yCoordinateToPixel(p[1], squareCanvasBound)));
         }
@@ -260,7 +260,7 @@ export class Graph {
         form.polygon(
             Polygon.convexHull(
             this._groupToPixel([
-                [0, 0], iHat.add(jHat).getPoint(), iHat.getPoint(), jHat.getPoint()
+                [0, 0], iHat.add(jHat).p, iHat.p, jHat.p
             ], squareCanvasBound))
         );
     }
@@ -304,8 +304,8 @@ export class Graph {
         this.canvasBound = canvasBound;
         this._drawGrids(matrix);
         if (this.hasDeterminantDisplay) {
-            this._drawDeterminantDisplay(Vector.getIHat().freeze(), Vector.getJHat().freeze());
-            this._drawDeterminantDisplay(Vector.getIHat(matrix).freeze(), Vector.getJHat(matrix).freeze());
+            this._drawDeterminantDisplay(Vector.getIHat(), Vector.getJHat());
+            this._drawDeterminantDisplay(Vector.getIHat(matrix), Vector.getJHat(matrix));
         }
         if (this.hasEigenVectorDisplay) {
             this._drawEigenVectorDisplay(matrix);

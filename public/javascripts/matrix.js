@@ -29,7 +29,7 @@ export class Matrix {
         // [ a c ] [ x ] = [ ax + cy ]
         // [ b d ] [ y ]   [ bx + dy ]
         return new Vector(
-            [v.x*this.c0r0 + v.y*this.c1r0, v.x*this.c0r1 + v.y*this.c1r1]
+            v[0]*this.c0r0 + v[1]*this.c1r0, v[0]*this.c0r1 + v[1]*this.c1r1
         );
     }
 
@@ -100,7 +100,7 @@ export class Matrix {
     }
 
     getDeterminant() {
-        return this.c0r0*this.c1r1 - this.c0r1*this.c1r0
+        return this.c0r0*this.c1r1 - this.c0r1*this.c1r0;
     }
 
     toString() {

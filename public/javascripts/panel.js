@@ -2,6 +2,7 @@ import { IDENTITY_MATRIX, transform, addMatrix, deleteMatrix, getMatrices, addVe
 import { parseMatrix } from '/javascripts/input-parser.js';
 
 /* TOP BAR */
+const topWrapper = document.getElementById('top-wrapper')
 const barButtons = document.getElementsByClassName("bar-button");
 const matricesButton = document.getElementById("matrices-button");
 const vectorsButton = document.getElementById("vectors-button");
@@ -51,8 +52,9 @@ buttonBarPair.set(toolsButton, toolsBar);
 
 buttonBarPair.forEach((value, key) => {
     key.addEventListener('pointerdown', () => {
-        if (key && value)
+        if (key && value) {
             toggleContentBar(key, value);
+        }
     });
 })
 
@@ -72,6 +74,8 @@ function toggleContentBar(openButton, openBar) {
         button.classList.add('disabled');
     }
     openButton.classList.remove('disabled');
+
+    updateDraggablePos();
 }
 
 
@@ -457,15 +461,21 @@ createToggler(eigenVectorDisplayToggleButton, enableEigenVectorDisplay, enableEi
 
 
 /* DRAGGABLE */
-let draggableElements = document.getElementsByClassName('draggable');
+let draggableElements = [];
 
-for (let i = 0; i < draggableElements.length; i++) {
-    dragElement(draggableElements[i]);
-}
+(() => {
+    let draggableElements = document.getElementsByClassName('draggable');
+
+    for (let i = 0; i < draggableElements.length; i++) {
+        dragElement(draggableElements[i]);
+    }
+})();
+
 
 function dragElement(element) { // https://www.w3schools.com/howto/howto_js_draggable.asp
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     element.addEventListener('pointerdown', dragMouseDown);
+    draggableElements.push(element);
 
     function dragMouseDown(e) {
         e = e || window.event;
@@ -478,14 +488,14 @@ function dragElement(element) { // https://www.w3schools.com/howto/howto_js_drag
     }
     
     function elementDrag(e) {
-        console.log(e);
         e = e || window.event;
         e.preventDefault();
         pos1 = pos3 - e.clientX;
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
-        element.parentElement.style.top = Math.min(Math.max(element.parentElement.offsetTop - pos2, 28), document.body.clientHeight - element.parentElement.clientHeight) + "px";
+
+        element.parentElement.style.top = Math.min(Math.max(element.parentElement.offsetTop - pos2, topWrapper.offsetHeight), document.body.clientHeight - element.parentElement.clientHeight) + "px";
         element.parentElement.style.left = Math.min(Math.max(element.parentElement.offsetLeft - pos1, 0), document.body.clientWidth - element.parentElement.clientWidth) + "px";
     }
     
@@ -494,6 +504,21 @@ function dragElement(element) { // https://www.w3schools.com/howto/howto_js_drag
         document.removeEventListener('pointermove', elementDrag);
     }
 }
+
+function updateDraggablePos() {
+    for (let i = 0; i < draggableElements.length; i++) {
+        const element = draggableElements[i];
+        if (!document.contains(element)) {
+            draggableElements.splice(i, 1);
+            i--;
+            continue;
+        }
+        element.parentElement.style.top = Math.min(Math.max(element.parentElement.offsetTop, topWrapper.offsetHeight), document.body.clientHeight - element.parentElement.clientHeight) + "px";
+        element.parentElement.style.left = Math.min(Math.max(element.parentElement.offsetLeft, 0), document.body.clientWidth - element.parentElement.clientWidth) + "px";
+    }
+}
+
+document.addEventListener('resize', updateDraggablePos);
 
 /* WARNING FRAME */
 const warningFrame = document.getElementsByClassName("warning-frame")[0];
