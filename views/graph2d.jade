@@ -1,5 +1,8 @@
 extends layout
 
+block viewport 
+  meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+
 block headcontent
   link(rel='stylesheet', href='/stylesheets/graph2d.css')
   script(src="/javascripts/math.js" type="text/javascript")
@@ -18,7 +21,7 @@ block headcontent
 block content
   #top-wrapper
     #top-bar
-      #favicon
+      a#favicon(href="/")
       #title
         a(href="/")="Graph Linear Algebra"
       nav
@@ -249,3 +252,5 @@ block content
 
   main#graph
     #pt
+
+  #log

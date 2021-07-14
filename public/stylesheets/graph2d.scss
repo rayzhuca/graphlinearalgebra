@@ -5,6 +5,7 @@
 
 html {
 	height: -webkit-fill-available;
+	touch-action: none;
 }
 
 body {
@@ -15,6 +16,8 @@ body {
 	font-smooth: always;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	touch-action: none;
+	@extend .noselect;
 }
 
 a {
@@ -29,6 +32,17 @@ a {
 }
 
 
+#log {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 20px;
+	z-index: 10000;
+	font-size: 1.1em;
+	color: black;
+}
+
 // z-index: 
 // 100-999 frame
 // 1k+ normal
@@ -40,6 +54,15 @@ a {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+}
+
+.select {
+	-webkit-touch-callout: auto; 
+	-webkit-user-select: auto;
+	-khtml-user-select: auto;
+	-moz-user-select: auto;
+	-ms-user-select: auto;
+	user-select: auto;
 }
 
 input:focus, div[contenteditable="true"]:focus {
@@ -56,6 +79,7 @@ input:focus, div[contenteditable="true"]:focus {
 	height: 100%;
 	width: 100%;
 	position: absolute;
+	touch-action: none;
 }
 
 /* TOP BAR */
@@ -148,7 +172,7 @@ input:focus, div[contenteditable="true"]:focus {
 	// position: absolute;
 	z-index: 1008;
 	background-color: rgb(51, 73, 112);
-	width: 100%;
+	width: calc(100% - 30px);
 	// height: 30px;
 	padding: 0 15px;
 	display: flex;
@@ -216,18 +240,29 @@ input:focus, div[contenteditable="true"]:focus {
 
 
 		& > .close-button {
-			margin-left: 10px;
-			height: 10px;
-			width: 10px;
-			transform: translateY(1px);
-			background-color: rgb(224, 67, 67);
-			border-radius: 100%;
-			display: inline-block;
+			position: relative;
 			z-index: 1000;
-			cursor: pointer;
+			padding: 8px;
+			margin-left: 5px;
+
+			&::after {
+				content: '';
+				height: 10px;
+				width: 10px;
+				transform: translateY(1px);
+				background-color: rgb(224, 67, 67);
+				border-radius: 100%;
+				display: inline-block;
+				z-index: 1001;
+				cursor: pointer;
+
+				
+			}
 
 			&:hover {
-				background-color: rgb(194, 54, 54);
+				&::after {
+					background-color: rgb(194, 54, 54);
+				}
 			}
 		}
 
@@ -258,6 +293,7 @@ input:focus, div[contenteditable="true"]:focus {
 				display: table-cell;
 				vertical-align: middle;
 			}
+			@extend .select;
 		}
 
 

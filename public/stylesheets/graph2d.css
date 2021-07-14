@@ -5,6 +5,8 @@
 
 html {
   height: -webkit-fill-available;
+  -ms-touch-action: none;
+      touch-action: none;
 }
 
 body {
@@ -15,6 +17,8 @@ body {
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -ms-touch-action: none;
+      touch-action: none;
 }
 
 a {
@@ -29,12 +33,31 @@ a:hover {
   color: #ace5ff;
 }
 
-.noselect, #top-bar > *, .content-bar > *, .property-frame > .top-bar, .warning-frame > .top-bar, .property-frame > .properties-list, .warning-frame > .properties-list, .property-frame > .button-list, .warning-frame > .button-list {
+#log {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  z-index: 10000;
+  font-size: 1.1em;
+  color: black;
+}
+
+.noselect, body, #top-bar > *, .content-bar > *, .property-frame > .top-bar, .warning-frame > .top-bar, .property-frame > .properties-list, .warning-frame > .properties-list, .property-frame > .button-list, .warning-frame > .button-list {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.select, .property-frame > .properties-list > li, .warning-frame > .properties-list > li {
+  -webkit-touch-callout: auto;
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
 }
 
 input:focus, div[contenteditable="true"]:focus {
@@ -50,6 +73,8 @@ input:focus, div[contenteditable="true"]:focus {
   height: 100%;
   width: 100%;
   position: absolute;
+  -ms-touch-action: none;
+      touch-action: none;
 }
 
 /* TOP BAR */
@@ -140,7 +165,7 @@ input:focus, div[contenteditable="true"]:focus {
 .content-bar {
   z-index: 1008;
   background-color: #334970;
-  width: 100%;
+  width: calc(100% - 30px);
   padding: 0 15px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -213,7 +238,14 @@ input:focus, div[contenteditable="true"]:focus {
 }
 
 .property-frame > .top-bar > .close-button, .warning-frame > .top-bar > .close-button {
-  margin-left: 10px;
+  position: relative;
+  z-index: 1000;
+  padding: 8px;
+  margin-left: 5px;
+}
+
+.property-frame > .top-bar > .close-button::after, .warning-frame > .top-bar > .close-button::after {
+  content: '';
   height: 10px;
   width: 10px;
   -webkit-transform: translateY(1px);
@@ -221,11 +253,11 @@ input:focus, div[contenteditable="true"]:focus {
   background-color: #e04343;
   border-radius: 100%;
   display: inline-block;
-  z-index: 1000;
+  z-index: 1001;
   cursor: pointer;
 }
 
-.property-frame > .top-bar > .close-button:hover, .warning-frame > .top-bar > .close-button:hover {
+.property-frame > .top-bar > .close-button:hover::after, .warning-frame > .top-bar > .close-button:hover::after {
   background-color: #c23636;
 }
 

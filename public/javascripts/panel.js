@@ -50,7 +50,7 @@ buttonBarPair.set(vectorsButton, vectorsBar);
 buttonBarPair.set(toolsButton, toolsBar);
 
 buttonBarPair.forEach((value, key) => {
-    key.addEventListener('click', () => {
+    key.addEventListener('pointerdown', () => {
         if (key && value)
             toggleContentBar(key, value);
     });
@@ -91,7 +91,7 @@ buttonPropertyFramePair.set(eigenButton, eigenFrame);
 
 buttonPropertyFramePair.forEach((value, key) => {
     if (value && key)
-    key.addEventListener('click', () => {
+    key.addEventListener('pointerdown', () => {
         openPropertyFrame(value);
         key.classList.remove('disabled');
     });
@@ -138,7 +138,7 @@ closeButtons.forEach(element => {
 
 
 function registerCloseButton(element, custom) {
-    element.addEventListener('click', (e) => {
+    element.addEventListener('pointerdown', (e) => {
         if (custom) {
             custom(element);
         } else {
@@ -157,7 +157,7 @@ function registerCloseButton(element, custom) {
 
 // toggler 
 function createToggler(button, onOff, onOn) {
-    button.addEventListener('click', _ => {
+    button.addEventListener('pointerdown', _ => {
         const turnOn = button.textContent === "o";
         // o === is off
         // x === is on
@@ -182,7 +182,7 @@ const matricesAddNameField = document.getElementById("matrices-add-name-field");
 const matricesAddFrameAddButton = document.getElementById("matrices-add-frame-add-button");
 const matricesAddFrameCancelButton = document.getElementById("matrices-add-frame-cancel-button");
 
-matricesAddFrameAddButton.addEventListener('click', () => {
+matricesAddFrameAddButton.addEventListener('pointerdown', () => {
     const c0X = Number.parseFloat(matricesAddc0X.textContent);
     const c0Y = Number.parseFloat(matricesAddc0Y.textContent);
     const c1X = Number.parseFloat(matricesAddc1X.textContent);
@@ -215,7 +215,7 @@ matricesAddFrameAddButton.addEventListener('click', () => {
     transformFromInput(transformTextField.textContent);
 });
 
-matricesAddFrameCancelButton.addEventListener('click', resetAddMatricesInput);
+matricesAddFrameCancelButton.addEventListener('pointerdown', resetAddMatricesInput);
 
 function resetAddMatricesInput() {
     matricesAddc0X.textContent = "0";
@@ -298,7 +298,7 @@ function setupMatrixListLi(name, matrixC0, matrixC1) {
     clone.getElementsByClassName('c0y')[0].textContent = matrixC0[1];
     clone.getElementsByClassName('c1x')[0].textContent = matrixC1[0];
     clone.getElementsByClassName('c1y')[0].textContent = matrixC1[1];
-    clone.getElementsByClassName('delete-button')[0].addEventListener('click', () => {
+    clone.getElementsByClassName('delete-button')[0].addEventListener('pointerdown', () => {
         deleteMatrixFromList(name, clone);
         transformFromInput(transformTextField.textContent);
     });
@@ -327,7 +327,7 @@ const vectorsAddFrameAddButton = document.getElementById("vectors-add-frame-add-
 const vectorsAddFrameCancelButton = document.getElementById("vectors-add-frame-cancel-button");
 const vectorsAddFrameInputColor = document.getElementById("vectors-add-frame-input-color");
 
-vectorsAddFrameAddButton.addEventListener('click', () => {
+vectorsAddFrameAddButton.addEventListener('pointerdown', () => {
     const xNum = Number.parseFloat(vectorsAddX.textContent);
     const yNum = Number.parseFloat(vectorsAddY.textContent);
     const name = vectorsAddNameField.textContent.trim();
@@ -349,7 +349,7 @@ vectorsAddFrameAddButton.addEventListener('click', () => {
     transformFromInput(transformTextField.textContent);
 });
 
-vectorsAddFrameCancelButton.addEventListener('click', resetAddVectorsInput);
+vectorsAddFrameCancelButton.addEventListener('pointerdown', resetAddVectorsInput);
 
 function resetAddVectorsInput() {
     vectorsAddFrameInputColor.value = "#ff0000";
@@ -385,7 +385,7 @@ function setupVectorListLi(name, vectorX, vectorY, color) {
     clone.getElementsByClassName('x')[0].textContent = vectorX;
     clone.getElementsByClassName('y')[0].textContent = vectorY;
     clone.getElementsByClassName('color')[0].style.backgroundColor = color;
-    clone.getElementsByClassName('delete-button')[0].addEventListener('click', () => {
+    clone.getElementsByClassName('delete-button')[0].addEventListener('pointerdown', () => {
         deleteVectorFromList(name, clone);
         transformFromInput(transformTextField.textContent);
     });
@@ -465,18 +465,20 @@ for (let i = 0; i < draggableElements.length; i++) {
 
 function dragElement(element) { // https://www.w3schools.com/howto/howto_js_draggable.asp
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    element.onmousedown = dragMouseDown;
+    element.addEventListener('pointerdown', dragMouseDown);
 
     function dragMouseDown(e) {
         e = e || window.event;
         e.preventDefault();
         pos3 = e.clientX;
         pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        document.onmousemove = elementDrag;
+        
+        document.addEventListener('pointerup', closeDragElement);
+        document.addEventListener('pointermove', elementDrag);
     }
     
     function elementDrag(e) {
+        console.log(e);
         e = e || window.event;
         e.preventDefault();
         pos1 = pos3 - e.clientX;
@@ -487,9 +489,9 @@ function dragElement(element) { // https://www.w3schools.com/howto/howto_js_drag
         element.parentElement.style.left = Math.min(Math.max(element.parentElement.offsetLeft - pos1, 0), document.body.clientWidth - element.parentElement.clientWidth) + "px";
     }
     
-    function closeDragElement() {
-        document.onmouseup = null;
-        document.onmousemove = null;
+    function closeDragElement(e) {
+        document.removeEventListener('pointerup', closeDragElement);
+        document.removeEventListener('pointermove', elementDrag);
     }
 }
 
@@ -566,7 +568,7 @@ function putFrameOnTop(frame, search=true) {
 
 for (let frame of document.getElementsByClassName("property-frame")) {
     registerFrameZIndex(frame);
-    frame.addEventListener('mousedown', () => putFrameOnTop(frame));
+    frame.addEventListener('pointerdown', () => putFrameOnTop(frame));
 }
 
 
@@ -667,4 +669,4 @@ refreshVectorList(getVectors());
 
 handleTransform({matrix: IDENTITY_MATRIX});
 
-// window.onbeforeunload = () => true;
+window.onbeforeunload = () => true;

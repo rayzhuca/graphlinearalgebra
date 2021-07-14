@@ -40,9 +40,9 @@ space.add({
 
 space.bindMouse().bindTouch().play();
 
-document.body.ontouchend = (e) => {
-    e.preventDefault();
-};
+// document.body.ontouchend = (e) => {
+//     e.preventDefault();
+// };
 
 setInterval(() => {
     offsetTime = lastTime;

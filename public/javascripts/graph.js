@@ -4,7 +4,6 @@ import { Matrix } from "/javascripts/matrix.js";
 export class Graph {
     constructor() {
         this.maxX = 10;
-        this.maxY = 10;
 
         this.origin = new Pt(0, 0);
         this.hasUnitVectors = true;
@@ -27,18 +26,17 @@ export class Graph {
         form.fill("#000").font(14, "normal").strokeOnly("#000", 1).text(pos, text, 100);
     }
 
-    _getGraphBound() {
-        const maxX = this.maxX;
-        const maxY = this.maxY;
-        return new Bound(new Pt(-maxX, maxY), new Pt(maxX, -maxY));
-    }
-
     _getCanvasSquareBound(canvasBound) {
         if (canvasBound.height === this.lastCanvasBound.height && canvasBound.width === this.lastCanvasBound.width) {
             return this.lastCanvasSquareBound;
         }
-        const bh = canvasBound.height;
-        const bw = canvasBound.width;
+        let bh = canvasBound.height;
+        let bw = canvasBound.width;
+        if (bh > bw) {
+            this.lastCanvasSquareBound = new Bound(new Pt(-(bh-bw)/2, 0), new Pt(bw + (bh-bw)/2, bh));
+            this.lastCanvasBound = canvasBound;
+            return this.lastCanvasSquareBound;
+        }
         this.lastCanvasSquareBound = new Bound(new Pt(0, -(bw-bh)/2), new Pt(bw, bh + (bw-bh)/2));
         this.lastCanvasBound = canvasBound;
         return this.lastCanvasSquareBound;
@@ -51,7 +49,7 @@ export class Graph {
 
     _yCoordinateToPixel(y, bound) {
         const centerY = bound.center.y;
-        return centerY - (y/this.maxY) * bound.height/2;
+        return centerY - (y/this.maxX) * bound.height/2;
     }
 
     _coordinateToPixel(p, bound) {
@@ -75,8 +73,8 @@ export class Graph {
             return;
         }
 
-        const m = matrix.c0[1]/matrix.c0[0]; // ! TODO FIX!!!!!!
-        const x1 = this.maxY;
+        const m = matrix.c0[1]/matrix.c0[0];
+        const x1 = this.maxX;
         const p1 = [ -x1, p[1] - m * (p[0]+x1)];
         const p2 = [ x1, p[1] - m * (p[0]-x1)];
         form.line([this._coordinateToPixel(p1, bound), this._coordinateToPixel(p2, bound)]);
@@ -138,12 +136,10 @@ export class Graph {
         return Math.pow(10, d) * c;
     }
 
-    _drawGrids(matrix) {        
-        // form.log(Math.round(this.maxX) + " " + Math.round(this.maxY));
-
+    _drawGrids(matrix) {
         const squareCanvasBound = this._getCanvasSquareBound(this.canvasBound);
 
-        const step = this._getLabelCoordStep(Math.max(this.maxX, this.maxY))/2;
+        const step = this._getLabelCoordStep(Math.max(this.maxX, this.maxX))/2;
         const useScientifcX = step >= 100_000;
 
         // background reference
@@ -155,17 +151,15 @@ export class Graph {
         this._drawGridLines(step, useScientifcX, squareCanvasBound, Matrix.IDENTITY, !this.settings.drawLabels, "#f5f5f5");
 
         // w/ matrix
-        // if (!matrix.equals(Matrix.IDENTITY)) {
         this._drawGridLines(step, useScientifcX, squareCanvasBound, matrix, true, "#DBEEFF");
-        // }
         form.strokeOnly("#389FFF", 1.2);
         this._drawHorizontalLine(0, squareCanvasBound, matrix);
         this._drawVerticalLine(0, squareCanvasBound, matrix);
     }
 
     _drawGridLines(step, useScientifcX, squareCanvasBound, matrix, noLabel, color) {
-        const maxX = 2 * this.maxX; // TODO FIX
-        const maxY = maxX * (this.maxY/this.maxX);
+        const maxX = 2 * this.maxX;
+        const maxY = maxX * (squareCanvasBound.height/squareCanvasBound.width);
 
         form.alignText('center', 'middle');
         for (let i = step, k = 0; i <= maxX; i+=step, k++) {
@@ -262,7 +256,6 @@ export class Graph {
 
     _drawDeterminantDisplay(iHat, jHat) {
         const squareCanvasBound = this._getCanvasSquareBound(this.canvasBound);
-        // form.stroke("#389FFF");
         form.fillOnly("rgba(38, 147, 255, 0.2)");
         form.polygon(
             Polygon.convexHull(
@@ -270,10 +263,6 @@ export class Graph {
                 [0, 0], iHat.add(jHat).getPoint(), iHat.getPoint(), jHat.getPoint()
             ], squareCanvasBound))
         );
-        // console.log((
-        //     [
-        //         [0, 0], iHat.getPoint(), jHat.getPoint(), iHat.add(jHat).getPoint()
-        //     ]));
     }
 
     _drawEigenVectorDisplay(matrix) {
@@ -281,7 +270,6 @@ export class Graph {
         console.log(matrix.get2DArray());
         const eigs = math.eigs(matrix.get2DArray());
 
-        // console.log(eigs);
         for (let i = 0; i < 2; i++) {
             const value = eigs.values[i];
             const vector = eigs.vectors[i];
@@ -297,23 +285,19 @@ export class Graph {
     }
 
     scaleX(factor) {
-        this.maxX = Math.max(this.maxX * factor);
-    }
-
-    scaleY(factor) {
-        this.maxY = this.maxY * factor;
+        this.maxX = this.maxX * factor;
     }
 
     scale(factor) {
         if (factor < 1 && this.maxX < 0.001) return false;
+        if (factor == 0) return false;
         this.scaleX(factor);
-        this.scaleY(factor);
         return true;
     }
 
     draw(canvasBound, vectors, matrix) {
         if (!canvasBound) error('form and bound not passed');
-        if (matrix == undefined ) matrix = Matrix.IDENTITY;
+        if (matrix == undefined) matrix = Matrix.IDENTITY;
         if (vectors == undefined) vectors = [];
 
         this.vectorsDrawn = [];

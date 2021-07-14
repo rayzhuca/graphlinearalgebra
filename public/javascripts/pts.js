@@ -5420,12 +5420,12 @@ class MultiTouchSpace extends Space {
     }
     _touchMove(evt) {
         this._mouseMove(evt);
-        evt.preventDefault();
+        // evt.preventDefault();
         return false;
     }
     _touchStart(evt) {
         this._mouseDown(evt);
-        evt.preventDefault();
+        // evt.preventDefault();
         return false;
     }
 }
