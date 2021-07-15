@@ -96,15 +96,22 @@ buttonPropertyFramePair.set(eigenButton, eigenFrame);
 buttonPropertyFramePair.forEach((value, key) => {
     if (value && key)
     key.addEventListener('pointerdown', () => {
-        openPropertyFrame(value);
-        key.classList.remove('disabled');
+        togglePropertyFrame(value, key);
     });
 });
 
+function togglePropertyFrame(frame, key) {
+    if (frame.style.display === "block") {
+        closePropertyFrame(frame.querySelector('.close-button'));
+    } else {
+        openPropertyFrame(frame, key);
+    }
+}
 
-function openPropertyFrame(frame) {
+function openPropertyFrame(frame, key) {
     frame.style.display = "block";
     putFrameOnTop(frame);
+    key.classList.remove('disabled');
 }
 
 
@@ -140,23 +147,26 @@ closeButtons.forEach(element => {
     registerCloseButton(element);
 });
 
-
 function registerCloseButton(element, custom) {
-    element.addEventListener('pointerdown', (e) => {
-        if (custom) {
-            custom(element);
-        } else {
-            const frame = element.parentElement.parentElement;
-            frame.style.display = "none";
-
-            // remove button highlight
-            buttonPropertyFramePair.forEach((v, k) => {
-                if (v.id === frame.id) {
-                    k.classList.add('disabled');
-                }
-            });
-        }
+    element.addEventListener('pointerdown', () => {
+        closePropertyFrame(element, custom);
     });
+}
+
+function closePropertyFrame(element, custom) {
+    if (custom) {
+        custom(element);
+    } else {
+        const frame = element.parentElement.parentElement;
+        frame.style.display = "none";
+
+        // remove button highlight
+        buttonPropertyFramePair.forEach((v, k) => {
+            if (v.id === frame.id) {
+                k.classList.add('disabled');
+            }
+        });
+    }
 }
 
 // toggler 
@@ -192,20 +202,20 @@ matricesAddFrameAddButton.addEventListener('pointerdown', () => {
     const c1X = Number.parseFloat(matricesAddc1X.textContent);
     const c1Y = Number.parseFloat(matricesAddc1Y.textContent);
     const name = matricesAddNameField.textContent.trim();
-    if (Number.isNaN(c0X)) {
-        createNewWarning("Matrix C0 X must be a number");
+    if (!Number.isFinite(c0X)) {
+        createNewWarning("Matrix C0 X must be a finite number");
         return;
     }
-    if (Number.isNaN(c0Y)) {
-        createNewWarning("Matrix C0 Y must be a number");
+    if (!Number.isFinite(c0Y)) {
+        createNewWarning("Matrix C0 Y must be a finite number");
         return;
     }
-    if (Number.isNaN(c1X)) {
-        createNewWarning("Matrix C1 X must be a number");
+    if (!Number.isFinite(c1X)) {
+        createNewWarning("Matrix C1 X must be a finite number");
         return;
     }
-    if (Number.isNaN(c1Y)) {
-        createNewWarning("Matrix C1 Y must be a number");
+    if (!Number.isFinite(c1Y)) {
+        createNewWarning("Matrix C1 Y must be a finite number");
         return;
     }
     if (!name) {
@@ -335,12 +345,12 @@ vectorsAddFrameAddButton.addEventListener('pointerdown', () => {
     const xNum = Number.parseFloat(vectorsAddX.textContent);
     const yNum = Number.parseFloat(vectorsAddY.textContent);
     const name = vectorsAddNameField.textContent.trim();
-    if (Number.isNaN(xNum)) {
-        createNewWarning("Vector X must be a number");
+    if (!Number.isFinite(xNum)) {
+        createNewWarning("Vector X must be a finite number");
         return;
     }
-    if (Number.isNaN(yNum)) {
-        createNewWarning("Vector Y must be a number");
+    if (!Number.isFinite(yNum)) {
+        createNewWarning("Vector Y must be a finite number");
         return;
     }
     if (!name) {
@@ -449,7 +459,7 @@ const determinantField = document.getElementById("determinant-field");
 const determinantDisplayToggleButton = document.getElementById("display-determinant-toggle-button");
 
 function changeDeterminant(matrix) {
-    determinantField.textContent = matrix.getDeterminant();
+    determinantField.textContent = Math.round(matrix.getDeterminant()*1000)/1000;
 }
 
 createToggler(determinantDisplayToggleButton, enableDeterminantDisplay, enableDeterminantDisplay);

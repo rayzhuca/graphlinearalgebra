@@ -3,7 +3,7 @@ import { Vector } from "/javascripts/vector.js";
 export class Matrix {
 
     constructor(c0, c1) {
-        if (c0 === undefined || c1 === undefined || c0.length !== 2 || c0.length !== c1.length) console.error(`Invalid matrix c1 ${c0} c2 ${c1}`);
+        if (c0 === undefined || c1 === undefined || c0.length !== 2 || c1.length !== 2) console.error(`Invalid matrix c1 ${c0} c2 ${c1}`);
         this.c0 = c0;
         this.c1 = c1;
         this.c0r0 = c0[0];
@@ -13,12 +13,11 @@ export class Matrix {
     }
 
     get valid() {
-        return typeof this.c0r0 === "number" && typeof this.c0r1 === "number" && typeof this.c1r0 === "number" && typeof this.c1r1 === "number"
-        && !Number.isNaN(this.c0r0 + this.c0r1 + this.c1r0 + this.c1r1);
+        return Number.isFinite(this.c0r0) && Number.isFinite(this.c0r1) && Number.isFinite(this.c1r0) && Number.isFinite(this.c1r1);
     }
 
     get2DArray() {
-        return [this.c0, this.c1];
+        return [[this.c0r0, this.c1r0], [this.c0r1, this.c1r1]];
     }
 
     multiplyByScalar(a) {
@@ -101,6 +100,13 @@ export class Matrix {
 
     getDeterminant() {
         return this.c0r0*this.c1r1 - this.c0r1*this.c1r0;
+    }
+
+    forEach(f) {
+        f(this.c0r0);
+        f(this.c0r1);
+        f(this.c1r0);
+        f(this.c1r1);
     }
 
     toString() {

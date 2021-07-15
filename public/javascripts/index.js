@@ -4,7 +4,7 @@ import { Matrix } from "/javascripts/matrix.js";
 new Matrix([0, 0], [0, 0]);
 import { Graph } from "/javascripts/graph.js";
 
-Pts.quickStart("#pt", "#fbfdff");
+Pts.quickStart("#pt", "#fff");
 
 let currBound = new Bound();
 const graph = new Graph();

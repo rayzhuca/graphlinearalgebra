@@ -6,7 +6,7 @@ export class Vector {
         if (y !== undefined) {
             p = [p, y];
         }
-        if (p[0] === undefined || p[1] === undefined || typeof p[0] !== 'number' || typeof p[1] !== 'number' || Number.isNaN(p[0]) || Number.isNaN(p[1])) console.error(`Invalid values x ${p[0]} y ${p[1]}`);
+        if (!Number.isFinite(p[0]) || !Number.isFinite(p[1])) console.error(`Invalid values x ${p[0]} y ${p[1]}`);
         [this.x, this.y] = p;
         this.p = [this.x, this.y];
         this[0] = this.x;
@@ -81,14 +81,25 @@ export class Vector {
         return this.x + this.y;
     }
     
-    map(fn) {
-        return new Vector(fn(this.x), fn(this.y));
+    map(f) {
+        return new Vector(f(this.x), f(this.y));
+    }
+
+    forEach(f) {
+        f(this.x);
+        f(this.y);
     }
 
     toString() {
         return `Vector (${this.p[0]}, ${this.p[1]})`;
     }
+
+    equals(b) {
+        return this.x === b[0] && this.y === b[1];
+    }
 }
 
 Vector.IHAT = new Vector(1, 0);
 Vector.JHAT = new Vector(0, 1);
+Object.freeze(Vector.IHAT);
+Object.freeze(Vector.JHAT);

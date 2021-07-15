@@ -244,8 +244,9 @@ export class Graph {
 
     _drawVectors(vectors, matrix) {
         if (this.hasUnitVectors) {
-            const iHat = Vector.getIHat(matrix)
-            const jHat = Vector.getJHat(matrix)
+            const iHat = Vector.getIHat(matrix);
+            const jHat = Vector.getJHat(matrix);
+            
             this._drawVector(iHat, "#00ff00", Vector.getIHat());
             this._drawVector(jHat, "#0000ff", Vector.getIHat());
         }
@@ -255,6 +256,7 @@ export class Graph {
     }
 
     _drawDeterminantDisplay(iHat, jHat) {
+        if (iHat.cross(jHat) === 0) return;
         const squareCanvasBound = this._getCanvasSquareBound(this.canvasBound);
         form.fillOnly("rgba(38, 147, 255, 0.2)");
         form.polygon(
@@ -266,22 +268,24 @@ export class Graph {
     }
 
     _drawEigenVectorDisplay(matrix) {
+        console.log(matrix.toString());
         const squareCanvasBound = this._getCanvasSquareBound(this.canvasBound);
-        console.log(matrix.get2DArray());
-        const eigs = math.eigs(matrix.get2DArray());
+        let eigs;
+        try {
+            eigs = math.eigs(matrix.get2DArray());
+        } catch {
+            return;
+        }
 
         for (let i = 0; i < 2; i++) {
             const value = eigs.values[i];
-            const vector = eigs.vectors[i];
-            if (math.typeOf(vector[0]) === "Complex" || math.typeOf(vector[1]) === "Complex") {
+            const vector = math.flatten(math.column(eigs.vectors, i));
+            if (math.typeOf(vector[0]) !== 'number' || math.typeOf(vector[1]) !== 'number') {
                 continue;
             }
             form.strokeOnly("#cc99ff");
             this._drawLineFromP(vector, squareCanvasBound);
         }
-
-        // console.log(eigs.vectors);
-        // console.log(matrix);
     }
 
     scaleX(factor) {
