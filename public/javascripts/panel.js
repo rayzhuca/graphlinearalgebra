@@ -1,5 +1,6 @@
-import { IDENTITY_MATRIX, transform, addMatrix, deleteMatrix, getMatrices, addVector, deleteVector, getVectors, getVector, enableUnitVectors, enableDeterminantDisplay, enableEigenVectorDisplay } from "/javascripts/main.js";
-import { parseMatrix } from '/javascripts/input-parser.js';
+import { IDENTITY_MATRIX, transform, addMatrix, deleteMatrix, getMatrices, getMatrix, addVector, deleteVector, getVectors, getVector, enableUnitVectors, enableDeterminantDisplay, enableEigenVectorDisplay } from "/javascripts/main.js";
+import { parseMatrix, parseVector, parseNumber } from '/javascripts/input-parser.js';
+import { eig } from '/javascripts/eigs.js'
 
 /* TOP BAR */
 const topWrapper = document.getElementById('top-wrapper')
@@ -197,10 +198,10 @@ const matricesAddFrameAddButton = document.getElementById("matrices-add-frame-ad
 const matricesAddFrameCancelButton = document.getElementById("matrices-add-frame-cancel-button");
 
 matricesAddFrameAddButton.addEventListener('pointerdown', () => {
-    const c0X = Number.parseFloat(matricesAddc0X.textContent);
-    const c0Y = Number.parseFloat(matricesAddc0Y.textContent);
-    const c1X = Number.parseFloat(matricesAddc1X.textContent);
-    const c1Y = Number.parseFloat(matricesAddc1Y.textContent);
+    const c0X = parseNumber(matricesAddc0X.textContent);
+    const c0Y = parseNumber(matricesAddc0Y.textContent);
+    const c1X = parseNumber(matricesAddc1X.textContent);
+    const c1Y = parseNumber(matricesAddc1Y.textContent);
     const name = matricesAddNameField.textContent.trim();
     if (!Number.isFinite(c0X)) {
         createNewWarning("Matrix C0 X must be a finite number");
@@ -220,6 +221,10 @@ matricesAddFrameAddButton.addEventListener('pointerdown', () => {
     }
     if (!name) {
         createNewWarning("Name cannot be empty");
+        return;
+    }
+    if (getVector(name)) {
+        createNewWarning("Name already taken by a vector");
         return;
     }
 
@@ -280,6 +285,7 @@ function handleTransform(output) {
     transformOutputC1Y.textContent = matrix.c1r1;
 
     changeDeterminant(matrix);
+    changeEigs(matrix);
     transform(matrix);
 }
 
@@ -342,8 +348,8 @@ const vectorsAddFrameCancelButton = document.getElementById("vectors-add-frame-c
 const vectorsAddFrameInputColor = document.getElementById("vectors-add-frame-input-color");
 
 vectorsAddFrameAddButton.addEventListener('pointerdown', () => {
-    const xNum = Number.parseFloat(vectorsAddX.textContent);
-    const yNum = Number.parseFloat(vectorsAddY.textContent);
+    const xNum = parseNumber(vectorsAddX.textContent);
+    const yNum = parseNumber(vectorsAddY.textContent);
     const name = vectorsAddNameField.textContent.trim();
     if (!Number.isFinite(xNum)) {
         createNewWarning("Vector X must be a finite number");
@@ -355,6 +361,10 @@ vectorsAddFrameAddButton.addEventListener('pointerdown', () => {
     }
     if (!name) {
         createNewWarning("Name cannot be empty");
+        return;
+    }
+    if (getMatrix(name)) {
+        createNewWarning("Name already taken by a matrix");
         return;
     }
     addVector(name, xNum, yNum, vectorsAddFrameInputColor.value);
@@ -433,24 +443,49 @@ dotProductVectorBField.addEventListener('input', () => {
     changeDotProductOutput(dotProductVectorAField.textContent, dotProductVectorBField.textContent);
 });
 
-function changeDotProductOutput(aName, bName) {
-    const a = getVector(aName);
-    const b = getVector(bName);
+function getDotProduct(a, b) {
+    let result = 0;
+    for (let i = 0; i < a.length; i++) {
+        result += a[i] * b[i];
+    }
+    return result;
+}
 
-    if (!a && !b) {
-        dotProductOutput.textContent = "vector a and b not found";
+function vectorIsReal(v) {
+    for (let i = 0; i < v; i++) {
+        if (math.typeOf(v) !== "number") {
+            return false;
+        }
+    }
+    return true;
+}
+
+function changeDotProductOutput(aInput, bInput) {
+    const a = parseVector(aInput, getMatrices(), getVectors());
+    const b = parseVector(bInput, getMatrices(), getVectors());
+
+    if (a === undefined) {
+        dotProductOutput.textContent = "a is an invalid vector";
         return;
     }
-    if (!a) {
-        dotProductOutput.textContent = "vector a not found";
+    if (b === undefined) {
+        dotProductOutput.textContent = "b is an invalid vector";
         return;
     }
-    if (!b) {
-        dotProductOutput.textContent = "vector b not found";
+    if (!vectorIsReal(a)) {
+        dotProductOutput.textContent = "a is not a real vector";
+        return;
+    }
+    if (!vectorIsReal(b)) {
+        dotProductOutput.textContent = "b is not a real vector";
+        return;
+    }
+    if (a.length !== b.length) {
+        dotProductOutput.textContent = "vector a is of a different dimension from vector b";
         return;
     }
 
-    dotProductOutput.textContent = a.dot(b);
+    dotProductOutput.textContent = getDotProduct(a, b);
 }
 
 
@@ -468,6 +503,23 @@ createToggler(determinantDisplayToggleButton, enableDeterminantDisplay, enableDe
 const eigenVectorDisplayToggleButton = document.getElementById("display-eigen-vector-toggle-button");
 
 createToggler(eigenVectorDisplayToggleButton, enableEigenVectorDisplay, enableEigenVectorDisplay);
+
+function changeEigs(matrix) {
+    const {eigval, eigvec} = eig(matrix.get2DArray());
+    
+    for (let i = 0; i < eigval.length; i++) {
+        const value = eigval[i];
+        const vec = eigvec[i];
+
+        const valueEle = document.getElementById(`eigen-frame-eig-${i+1}-value`);
+        const xEle = document.getElementById(`eigen-frame-eig-${i+1}-x`);
+        const yEle = document.getElementById(`eigen-frame-eig-${i+1}-y`);
+
+        valueEle.textContent = value;
+        xEle.textContent = vec[0];
+        yEle.textContent = vec[1];
+    }
+}
 
 
 /* DRAGGABLE */

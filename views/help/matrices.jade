@@ -10,14 +10,7 @@ block help-content
     h1.help-title= "Matrices"
     p.description.
       The matrices bar deals with applying transformations onto the graph. 
-    //- ul.sections
-    //-   li
-    //-     a(href="#add")="#add"
-    //-   li
-    //-     a(href="#transform")="#transform"
-    //-   li
-    //-     a(href="#list")="#list"
-
+      
   section.property.wrapper#add
     h2.title="#add"
     p.description.
@@ -34,9 +27,9 @@ block help-content
     div.subsection
       h4.subtitle=".matrix"
       p.description.
-        The matrix is a 2x2 matrix. Its inputs must be a <strong><code>number</code></strong>. The inputs cannot be blank.
+        The matrix is a 2x2 matrix. Its inputs must be the result of a <strong><code>number</code></strong>. The inputs cannot be blank.
       p.description.
-        Examples of a valid number are <strong><code>2</code></strong>, <strong><code>2.3</code></strong>, <strong><code>2.3e3</code></strong>. A mathematical expression such as <code><strong>2*3</code></strong> is not vaild and could be misinterpreted.
+        Examples of a valid number are <strong><code>2</code></strong>, <strong><code>2.3</code></strong>, <strong><code>2.3e3</code></strong>. A mathematical expression such as <code><strong>sin(pi/2)+5</code></strong> is also vaild. Refer <a href="https://mathjs.org/docs/expressions/syntax.html" target="_blank">here</a>.
 
     p.description.
       If the name is already taken, then it will replace the matrix with the new matrix.
@@ -62,18 +55,18 @@ block help-content
         tr
           th
             <strong><code>[a,b;c,d]</strong></code>
-          th= "creates a new matrix with c1=[a, b] and c2=[c, d]"
+          th= "creates a new matrix with columns [a, c] and [b, d]"
           th
             <strong><code>[1,0;0,1] == I</strong></code>
         tr
           th
-            <strong><code>[c1, c2]</strong></code>
-          th= "creates a new matrix with two vectors"
+            <strong><code>[r1, r2]</strong></code>
+          th= "creates a new matrix with two row vectors"
           th
-            <strong><code>(Let o=[1, 1]) [o, o] == [1,1;1,1]</strong></code>
+            <strong><code>(Let o=[1, 1]) [o, [2,2]] == [1,1;2,2]</strong></code>
         tr
           th
-            <strong><code>M*c</strong></code>
+            <strong><code>c*M</strong></code>
           th= "scalar multiplication"
           th
             <strong><code>2*I == [2,0;0,2]</strong></code>

@@ -44,7 +44,7 @@ a:hover {
   color: black;
 }
 
-.noselect, body, #top-bar > *, .content-bar > *, .property-frame > .top-bar, .warning-frame > .top-bar, .property-frame > .properties-list, .warning-frame > .properties-list, .property-frame > .button-list, .warning-frame > .button-list {
+.noselect, body, #top-bar > *, .content-bar > *, .property-frame > .top-bar, .warning-frame > .top-bar, .property-frame > .properties-list, .warning-frame > .properties-list, .property-frame > .properties-list .left-wrapper, .warning-frame > .properties-list .left-wrapper, .property-frame > .properties-list > .color .input-color, .warning-frame > .properties-list > .color .input-color, .property-frame > .properties-list > .toggler .toggle-button, .warning-frame > .properties-list > .toggler .toggle-button, .property-frame > .button-list, .warning-frame > .button-list {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -52,12 +52,12 @@ a:hover {
   user-select: none;
 }
 
-.select, .property-frame > .properties-list > li, .warning-frame > .properties-list > li {
-  -webkit-touch-callout: auto;
-  -webkit-user-select: auto;
-  -moz-user-select: auto;
-  -ms-user-select: auto;
-  user-select: auto;
+.select, .property-frame > .properties-list > li, .warning-frame > .properties-list > li, #matrices-list-frame li.matrix-list-li .right-wrapper .matrix .c0x, #matrices-list-frame li.matrix-list-li .right-wrapper .matrix .c0y, #matrices-list-frame li.matrix-list-li .right-wrapper .matrix .c1x, #matrices-list-frame li.matrix-list-li .right-wrapper .matrix .c1y, .properties-list > li.vector .input-vector .middle > *, #vectors-list-frame .vector .middle > *, #eigen-frame .vector .middle > * {
+  -webkit-touch-callout: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 input:focus, div[contenteditable="true"]:focus {
@@ -350,7 +350,7 @@ input:focus, div[contenteditable="true"]:focus {
 }
 
 /* MATRICES */
-.properties-list > li.matrix .input-matrix, #matrices-list-frame li.matrix-list-li, #matrices-transform-frame .output-matrix {
+.properties-list > li.matrix .input-matrix, li.matrix-list-li, #matrices-transform-frame .output-matrix {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -359,24 +359,24 @@ input:focus, div[contenteditable="true"]:focus {
           justify-content: center;
 }
 
-.properties-list > li.matrix .input-matrix .left-bracket, #matrices-list-frame li.matrix-list-li .left-bracket, #matrices-transform-frame .output-matrix .left-bracket {
+.properties-list > li.matrix .input-matrix .left-bracket, li.matrix-list-li .left-bracket, #matrices-transform-frame .output-matrix .left-bracket {
   height: 50px;
   width: 5px;
   border: 1px solid #222222;
   border-right: 0px;
 }
 
-.properties-list > li.matrix .input-matrix .middle, #matrices-list-frame li.matrix-list-li .middle, #matrices-transform-frame .output-matrix .middle {
+.properties-list > li.matrix .input-matrix .middle, li.matrix-list-li .middle, #matrices-transform-frame .output-matrix .middle {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.properties-list > li.matrix .input-matrix .middle .c0, .properties-list > li.matrix .input-matrix .middle .c1, #matrices-list-frame li.matrix-list-li .middle .c0, #matrices-list-frame li.matrix-list-li .middle .c1, #matrices-transform-frame .output-matrix .middle .c0, #matrices-transform-frame .output-matrix .middle .c1 {
+.properties-list > li.matrix .input-matrix .middle .c0, .properties-list > li.matrix .input-matrix .middle .c1, li.matrix-list-li .middle .c0, li.matrix-list-li .middle .c1, #matrices-transform-frame .output-matrix .middle .c0, #matrices-transform-frame .output-matrix .middle .c1 {
   width: 40px;
 }
 
-.properties-list > li.matrix .input-matrix .middle .c0 .x, .properties-list > li.matrix .input-matrix .middle .c0 .y, .properties-list > li.matrix .input-matrix .middle .c1 .x, .properties-list > li.matrix .input-matrix .middle .c1 .y, #matrices-list-frame li.matrix-list-li .middle .c0 .x, #matrices-list-frame li.matrix-list-li .middle .c0 .y, #matrices-list-frame li.matrix-list-li .middle .c1 .x, #matrices-list-frame li.matrix-list-li .middle .c1 .y, #matrices-transform-frame .output-matrix .middle .c0 .x, #matrices-transform-frame .output-matrix .middle .c0 .y, #matrices-transform-frame .output-matrix .middle .c1 .x, #matrices-transform-frame .output-matrix .middle .c1 .y {
+.properties-list > li.matrix .input-matrix .middle .c0 .x, .properties-list > li.matrix .input-matrix .middle .c0 .y, .properties-list > li.matrix .input-matrix .middle .c1 .x, .properties-list > li.matrix .input-matrix .middle .c1 .y, li.matrix-list-li .middle .c0 .x, li.matrix-list-li .middle .c0 .y, li.matrix-list-li .middle .c1 .x, li.matrix-list-li .middle .c1 .y, #matrices-transform-frame .output-matrix .middle .c0 .x, #matrices-transform-frame .output-matrix .middle .c0 .y, #matrices-transform-frame .output-matrix .middle .c1 .x, #matrices-transform-frame .output-matrix .middle .c1 .y {
   height: 20px;
   white-space: nowrap;
   line-height: 20px;
@@ -384,15 +384,15 @@ input:focus, div[contenteditable="true"]:focus {
   overflow-x: auto;
 }
 
-.properties-list > li.matrix .input-matrix .middle .c0 .x, .properties-list > li.matrix .input-matrix .middle .c1 .x, #matrices-list-frame li.matrix-list-li .middle .c0 .x, #matrices-list-frame li.matrix-list-li .middle .c1 .x, #matrices-transform-frame .output-matrix .middle .c0 .x, #matrices-transform-frame .output-matrix .middle .c1 .x {
+.properties-list > li.matrix .input-matrix .middle .c0 .x, .properties-list > li.matrix .input-matrix .middle .c1 .x, li.matrix-list-li .middle .c0 .x, li.matrix-list-li .middle .c1 .x, #matrices-transform-frame .output-matrix .middle .c0 .x, #matrices-transform-frame .output-matrix .middle .c1 .x {
   margin-top: 3px;
 }
 
-.properties-list > li.matrix .input-matrix .middle .c0 .y, .properties-list > li.matrix .input-matrix .middle .c1 .y, #matrices-list-frame li.matrix-list-li .middle .c0 .y, #matrices-list-frame li.matrix-list-li .middle .c1 .y, #matrices-transform-frame .output-matrix .middle .c0 .y, #matrices-transform-frame .output-matrix .middle .c1 .y {
+.properties-list > li.matrix .input-matrix .middle .c0 .y, .properties-list > li.matrix .input-matrix .middle .c1 .y, li.matrix-list-li .middle .c0 .y, li.matrix-list-li .middle .c1 .y, #matrices-transform-frame .output-matrix .middle .c0 .y, #matrices-transform-frame .output-matrix .middle .c1 .y {
   margin-top: 5px;
 }
 
-.properties-list > li.matrix .input-matrix .right-bracket, #matrices-list-frame li.matrix-list-li .right-bracket, #matrices-transform-frame .output-matrix .right-bracket {
+.properties-list > li.matrix .input-matrix .right-bracket, li.matrix-list-li .right-bracket, #matrices-transform-frame .output-matrix .right-bracket {
   height: 50px;
   width: 5px;
   border: 1px solid #222222;
@@ -465,7 +465,7 @@ input:focus, div[contenteditable="true"]:focus {
 }
 
 /* VECTORS */
-.properties-list > li.vector .input-vector, #vectors-list-frame .vector {
+.properties-list > li.vector .input-vector, #vectors-list-frame .vector, #eigen-frame .vector {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -477,25 +477,31 @@ input:focus, div[contenteditable="true"]:focus {
           justify-content: center;
 }
 
-.properties-list > li.vector .input-vector .left-bracket, #vectors-list-frame .vector .left-bracket {
+.properties-list > li.vector .input-vector .left-bracket, #vectors-list-frame .vector .left-bracket, #eigen-frame .vector .left-bracket {
   height: 50px;
   width: 5px;
   border: 1px solid #adadad;
   border-right: 0px;
 }
 
-.properties-list > li.vector .input-vector .middle > *, #vectors-list-frame .vector .middle > * {
+.properties-list > li.vector .input-vector .middle, #vectors-list-frame .vector .middle, #eigen-frame .vector .middle {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.properties-list > li.vector .input-vector .middle > *, #vectors-list-frame .vector .middle > *, #eigen-frame .vector .middle > * {
   line-height: 20px;
   white-space: nowrap;
   width: 40px;
   height: 20px;
+  overflow-x: auto;
 }
 
-.properties-list > li.vector .input-vector .middle .y, #vectors-list-frame .vector .middle .y {
+.properties-list > li.vector .input-vector .middle .y, #vectors-list-frame .vector .middle .y, #eigen-frame .vector .middle .y {
   margin-top: 4px;
 }
 
-.properties-list > li.vector .input-vector .right-bracket, #vectors-list-frame .vector .right-bracket {
+.properties-list > li.vector .input-vector .right-bracket, #vectors-list-frame .vector .right-bracket, #eigen-frame .vector .right-bracket {
   height: 50px;
   width: 5px;
   border: 1px solid #adadad;
@@ -544,6 +550,31 @@ input:focus, div[contenteditable="true"]:focus {
   border: 1px solid gray;
   font-size: .9em;
   line-height: 20px;
+}
+
+/* TOOLS */
+#dot-product-output {
+  overflow-x: auto;
+  width: 50px;
+  margin: auto;
+}
+
+.property-frame#eigen-frame li.eig-list-li > .right-wrapper {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.property-frame#eigen-frame li.eig-list-li > .right-wrapper .value {
+  overflow-x: auto;
+  width: 40px;
 }
 
 .warning-frame {

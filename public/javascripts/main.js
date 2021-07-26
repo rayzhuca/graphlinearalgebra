@@ -144,10 +144,6 @@ function pointermove_handler(ev) {
     }
 }
 
-// window.onerror = function(e) {
-//     alert(e);
-// }
-
 function pointerup_handler(ev) {
     remove_event(ev);    
     if (evCache.length < 2) prevDiff = -1;
@@ -161,8 +157,6 @@ function remove_event(ev) {
         }
     }
 }
-
-document.getElementById('log').innerHTML = "shit";
 
 const graphEle = document.getElementById('graph');
 graphEle.addEventListener('pointerdown', pointerdown_handler);

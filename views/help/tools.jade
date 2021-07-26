@@ -17,9 +17,16 @@ block help-content
       The dot product panel calculates the dot product between two vectors.
 
     div.subsection
-      h4.subtitle=".vector-a-name, .vector-b-name"
+      h4.subtitle=".vector-a, .vector-b"
       p.description.
-        The input must be the name of a vector in <a href="/help/vectors#list">vectors#list</a>.
+        An expression that outputs a real vector.
+      p.description.
+        Valid expressions includes [1,2], [2+1, sin(pi)], etc. See the syntax <a href="https://mathjs.org/docs/expressions/syntax.html" target="_blank">here</a>.
+      p.description.
+        Vector a and vector b must have the same dimensions.
+      p.description.
+        This expression can contain vector variables in <a href="/help/vectors#list">vectors#list</a>
+      
 
   section.property.wrapper#determinant 
     h2.title="#determinant"
@@ -31,10 +38,37 @@ block help-content
     div.subsection
         h4.subtitle=".determinant"
         p.description.
-            The current determinant of the transformation.
+          The current determinant of the transformation.
 
      div.subsection
         h4.subtitle=".display-determinant"
         p.description.
-            When it is on, it would display a parallelogram from the column vectors of both the identity matrix and the current transformation. 
+          When it is on, it would display a parallelogram from the column vectors of both the identity matrix and the current transformation. 
 
+  section.property.wrapper#eigen 
+    h2.title="#eigen"
+    p.description.
+      The eigen panel can display and calculate the eigenvalues and eigenvectors of the current transformation.
+    p.description.
+      The eigen panel is in BETA; its calculations may be bugged.
+    p.description.
+      Please email me at <a href="mailto:graphlinearalgebra@gmail.com">graphlinearalgebra@gmail.com</a> if you know a bug resistant way of calculating eigens.
+    p.description.
+      <strong><code>NaN</strong></code> does not necessary mean the eigenvector is nonexistent.
+      
+    div.subsection
+        h4.subtitle=".display-eigenvectors"
+        p.description.
+          Displays purple lines that represent sets of eigenvectors of the transformation.
+        p.description.
+          The purple lines displayed does not all sets of valid eigenvectors. For example, matrix I does not display any lines.
+
+     div.subsection
+        h4.subtitle=".eig-1"
+        p.description.
+            The first pair of eigen values and vectors.
+
+     div.subsection
+        h4.subtitle=".eig-2"
+        p.description.
+            The second pair of eigen values and vectors.

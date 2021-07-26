@@ -1,5 +1,6 @@
 import { Vector } from "/javascripts/vector.js";
 import { Matrix } from "/javascripts/matrix.js";
+import { eig } from "/javascripts/eigs.js"
 
 export class Graph {
     constructor() {
@@ -105,15 +106,12 @@ export class Graph {
             form.line([[k, 0], [k, bound.height]]);
             return;
         }
-        
-        // y-y1=m(x-x1)
-        // y=m(x-x1)+y1
-        // y=m(x)
 
         const m = p[1]/p[0];
         const x1 = this.maxX;
         const p1 = [-x1, m*(-x1)];
         const p2 = [x1, m*x1];
+
         form.line([this._coordinateToPixel(p1, bound), this._coordinateToPixel(p2, bound)]);
     }
 
@@ -268,18 +266,11 @@ export class Graph {
     }
 
     _drawEigenVectorDisplay(matrix) {
-        console.log(matrix.toString());
         const squareCanvasBound = this._getCanvasSquareBound(this.canvasBound);
-        let eigs;
-        try {
-            eigs = math.eigs(matrix.get2DArray());
-        } catch {
-            return;
-        }
 
-        for (let i = 0; i < 2; i++) {
-            const value = eigs.values[i];
-            const vector = math.flatten(math.column(eigs.vectors, i));
+        const {eigval, eigvec} = eig(matrix.get2DArray());
+
+        for (let vector of eigvec) {
             if (math.typeOf(vector[0]) !== 'number' || math.typeOf(vector[1]) !== 'number') {
                 continue;
             }

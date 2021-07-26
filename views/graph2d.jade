@@ -8,6 +8,7 @@ block headcontent
   script(src="/javascripts/math.js" type="text/javascript")
   script(src="/javascripts/pts.js")
   script(src="/javascripts/input-parser.js" type="module")
+  script(src="/javascripts/eigs.js" type="module")
   script(src="/javascripts/vector.js" type="module")
   script(src="/javascripts/matrix.js" type="module")
   script(defer src="/javascripts/graph.js" type="module")
@@ -169,12 +170,12 @@ block content
     ul.properties-list#dot-product-properties-list
       li.text-field.vector-a
         .left-wrapper
-          .label="vector a name"
+          .label="vector a"
         .right-wrapper
           .text-field#dot-product-vector-a-field(contenteditable="true" spellcheck="false")
       li.text-field.vector-b
         .left-wrapper
-          .label="vector b name"
+          .label="vector b"
         .right-wrapper
           .text-field#dot-product-vector-b-field(contenteditable="true" spellcheck="false")
       li.output
@@ -201,17 +202,38 @@ block content
           .toggle-button#display-determinant-toggle-button="o"
 
   //- EIGEN
-  .property-frame#eigen-frame(data-width="230px")
+  .property-frame#eigen-frame(data-width="330px")
     .top-bar.draggable
       .close-button 
-      .title="eigen"
+      .title="eigen (BETA)"
     ul.properties-list#eigen-properties-list
       li.toggler
         .left-wrapper
           .label="display eigenvectors"
         .right-wrapper
           .toggle-button#display-eigen-vector-toggle-button="o"
-      
+      li.eig-list-li#eigen-frame-eig1
+        .left-wrapper
+          .label="eig 1"
+        .right-wrapper 
+          .value#eigen-frame-eig-1-value="0"
+          .vector
+            .left-bracket
+            .middle
+              .x#eigen-frame-eig-1-x="0"
+              .y#eigen-frame-eig-1-y="0"
+            .right-bracket
+      li.eig-list-li#eigen-frame-eig2
+        .left-wrapper
+          .label="eig 2"
+        .right-wrapper 
+          .value#eigen-frame-eig-2-value="0"
+          .vector
+            .left-bracket
+            .middle
+              .x#eigen-frame-eig-2-x="0"
+              .y#eigen-frame-eig-2-y="0"
+            .right-bracket
 
       
 
