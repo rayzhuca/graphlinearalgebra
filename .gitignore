@@ -10,7 +10,7 @@ public/stylesheets/style.css.map
 
 # mac
 .DS_Store
-
+.env
 # Logs
 logs
 *.log
